@@ -1,0 +1,127 @@
+/**
+ * Editor Styles
+ *
+ * @package SUBO4_Block_Theme
+ */
+
+/* Match frontend typography */
+.editor-styles-wrapper {
+    font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #434343;
+    line-height: 1.8;
+}
+
+.editor-styles-wrapper .wp-block {
+    max-width: 800px;
+}
+
+.editor-styles-wrapper .wp-block[data-align="wide"] {
+    max-width: 1200px;
+}
+
+/* Headings */
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+    color: #333;
+    font-weight: 600;
+}
+
+.editor-styles-wrapper h2 {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #212122;
+    color: #fff;
+    border-bottom-right-radius: 50px;
+    display: inline-block;
+}
+
+/* Paragraphs */
+.editor-styles-wrapper p {
+    margin-bottom: 20px;
+}
+
+/* Links */
+.editor-styles-wrapper a {
+    color: #121212;
+    border-bottom: 1px solid grey;
+    text-decoration: none;
+}
+
+.editor-styles-wrapper a:hover {
+    color: #06f;
+    border-bottom-color: #06f;
+}
+
+/* Blockquotes */
+.editor-styles-wrapper blockquote {
+    border-left: 3px solid #161616;
+    padding-left: 15px;
+    margin: 20px 0;
+    color: #6b6b6b;
+}
+
+/* Lists */
+.editor-styles-wrapper ul,
+.editor-styles-wrapper ol {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.editor-styles-wrapper li {
+    margin-bottom: 10px;
+}
+
+/* Code */
+.editor-styles-wrapper code {
+    color: #e82f18;
+    background-color: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Tables */
+.editor-styles-wrapper table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.editor-styles-wrapper th,
+.editor-styles-wrapper td {
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.editor-styles-wrapper th {
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Images */
+.editor-styles-wrapper img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Alignments */
+.aligncenter {
+    display: block;
+    margin: 0 auto;
+}
+
+.alignleft {
+    float: left;
+    margin-right: 20px;
+}
+
+.alignright {
+    float: right;
+    margin-left: 20px;
+}

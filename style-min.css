@@ -1,0 +1,20 @@
+/*
+Theme Name: SUBO4 Classic Theme
+Theme URI: https://github.com/vran-dev/hugo-SUBO4
+Author: SUBO4
+Author URI: https://zhangsubo.cn
+Description: 基于 Bootstrap 5 的 WordPress 经典主题，灵感来自 hugo-SUBO4 主题。简洁、优雅、响应式。
+Version: 1.0.0
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: SUBO4-classic-theme
+Tags: blog, one-column, custom-colors, custom-menu, featured-images, sticky-post, threaded-comments, translation-ready
+*/
+
+/* 
+ * 主题主样式从 assets/css/theme.css 加载
+ * Bootstrap 5 通过 CDN 加载
+ */

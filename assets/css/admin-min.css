@@ -1,0 +1,66 @@
+/**
+ * Admin Styles
+ *
+ * @package SUBO4_Block_Theme
+ */
+
+/* Admin Panel Customization */
+
+/* ACF Options Page */
+.acf-options-page .acf-field {
+    padding: 15px 20px;
+}
+
+.acf-options-page .acf-field-label label {
+    font-weight: 600;
+    color: #333;
+}
+
+.acf-options-page .acf-tab-wrap {
+    background: #f8f9fa;
+}
+
+.acf-options-page .acf-tab-group li a {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    color: #495057;
+}
+
+.acf-options-page .acf-tab-group li.active a {
+    background: #fff;
+    border-bottom-color: #fff;
+    color: #000;
+}
+
+/* Theme Options Navigation */
+#adminmenu li.current a.menu-top {
+    background: #212122;
+    color: #fff;
+}
+
+#adminmenu li.current a.menu-top:hover {
+    background: #333;
+}
+
+/* Custom Meta Boxes */
+.postbox-header {
+    background: #f8f9fa;
+}
+
+.postbox-header h2 {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Block Editor */
+.edit-post-visual-editor {
+    background: #f8f9fa;
+}
+
+/* Bootstrap Preview in Admin */
+.SUBO4-admin-preview {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
