@@ -127,7 +127,7 @@ subo2026/
 
 ## 许可证
 
-GPL v2 or later
+GPL v3.0 or later
 
 ## 致谢
 
