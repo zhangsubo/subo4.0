@@ -43,6 +43,9 @@ if ( file_exists( MY_THEME_ACF_PATH . 'acf.php' ) ) {
 // 移除头部多余代码
 include_once (ZS_PATH . 'remove-head.php');
 
+// 加载 ACF 可用性检查
+include_once( SUBO4_THEME_DIR . '/includes/acf-check.php' );
+
 
 /**
  * Theme setup
