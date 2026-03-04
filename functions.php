@@ -169,8 +169,8 @@ function convert_links_to_footnotes($content) {
         // 将链接替换为脚注编号（使用上标样式）
         $content = str_replace($match, $link_text . '<sup class="footnote-ref">' . ($key + 1) . '</sup>', $content);
 
-        // 添加脚注到数组
-        $footnotes[] = htmlspecialchars($link_text) . ': ' . htmlspecialchars($url);
+        // 添加脚注到数组（网址添加超链接和nofollow属性）
+        $footnotes[] = htmlspecialchars($link_text) . ': <a href="' . esc_url($url) . '" rel="nofollow" target="_blank">' . esc_html($url) . '</a>';
     }
 
     // 添加脚注列表到文章末尾
