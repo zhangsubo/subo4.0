@@ -1,0 +1,118 @@
+# WordPress Theme Strings POT File
+# Copyright (C) 2024 SUBO4
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: SUBO4 Classic Theme 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/zhangsubo/subo4.0/issues\n"
+"POT-Creation-Date: 2024-01-01 00:00:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/theme-config.php
+msgid "Welcome to my blog. I write about technology, products, and life."
+msgstr ""
+
+#: includes/functions/theme-setup.php
+msgid "Primary Menu"
+msgstr ""
+
+msgid "Footer Menu"
+msgstr ""
+
+#: includes/functions/footnotes.php
+msgid "References"
+msgstr ""
+
+msgid "Return to content"
+msgstr ""
+
+#: includes/functions/acf-integration.php
+msgid "Theme Settings"
+msgstr ""
+
+#: single.php
+#, php-format
+msgid " · Author: %s"
+msgstr ""
+
+msgid "over"
+msgstr ""
+
+msgid "#About Me"
+msgstr ""
+
+msgid "This work is licensed under %s"
+msgstr ""
+
+#: index.php
+msgid "No posts found."
+msgstr ""
+
+msgid "Posts navigation"
+msgstr ""
+
+#: header.php
+msgid "Toggle navigation"
+msgstr ""
+
+msgid "Please set up navigation menu in admin panel"
+msgstr ""
+
+#: template-parts/social-links.php
+msgid "GitHub"
+msgstr ""
+
+msgid "Visit GitHub profile"
+msgstr ""
+
+msgid "Twitter"
+msgstr ""
+
+msgid "Visit Twitter profile"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Send email"
+msgstr ""
+
+msgid "Weibo"
+msgstr ""
+
+msgid "Visit Weibo profile"
+msgstr ""
+
+msgid "WeChat Official Account"
+msgstr ""
+
+msgid "Show WeChat QR code"
+msgstr ""
+
+msgid "Personal WeChat ID"
+msgstr ""
+
+msgid "Show personal WeChat QR code"
+msgstr ""
+
+msgid "QR Code"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+#: footer.php
+#, php-format
+msgid " · Theme: %s"
+msgstr ""
+
+#, php-format
+msgid "Report illegal content: %s"
+msgstr ""

@@ -5,8 +5,8 @@
  * @package SUBO4_Classic_Theme
  */
 
-// 获取Logo
-$logo = get_field('SUBO4_logo', 'option');
+// Get Logo
+$logo = subo4_get_logo();
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -17,22 +17,30 @@ $logo = get_field('SUBO4_logo', 'option');
 </head>
 <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
-    
+
     <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
         <div class="container-fluid" style="max-width: 800px;">
-            <!-- Logo区域 -->
-            <?php if ($logo) : ?>
-            <a class="navbar-brand" href="<?php echo esc_url(home_url('/')); ?>">
-                <img src="<?php echo esc_url($logo); ?>" alt="<?php bloginfo('name'); ?>" style="max-height: 40px; width: auto;">
+            <!-- Logo Area -->
+            <?php if ( $logo ) : ?>
+            <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                <img src="<?php echo esc_url( $logo ); ?>"
+                     alt="<?php bloginfo( 'name' ); ?>"
+                     class="navbar-logo">
             </a>
             <?php endif; ?>
-            
-            <!-- 移动端菜单按钮 - 放在右侧 -->
-            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+
+            <!-- Mobile Menu Button -->
+            <button class="navbar-toggler ms-auto"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="<?php esc_attr_e( 'Toggle navigation', 'subo4-classic-theme' ); ?>">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
-            <!-- 导航菜单 -->
+
+            <!-- Navigation Menu -->
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <?php
                 if ( has_nav_menu( 'primary' ) ) {
@@ -44,7 +52,13 @@ $logo = get_field('SUBO4_logo', 'option');
                         'depth'           => 1,
                     ) );
                 } else {
-                    echo '<p style="color: #999; font-size: 12px; margin: 0;">请在后台设置导航菜单</p>';
+                    // Show placeholder only to users who can edit theme options
+                    if ( current_user_can( 'edit_theme_options' ) ) {
+                        printf(
+                            '<p class="menu-placeholder">%s</p>',
+                            esc_html__( 'Please set up navigation menu in admin panel', 'subo4-classic-theme' )
+                        );
+                    }
                 }
                 ?>
             </div>

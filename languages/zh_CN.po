@@ -1,0 +1,109 @@
+# Chinese (Simplified) translation for SUBO4 Classic Theme
+# Copyright (C) 2024 SUBO4
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: SUBO4 Classic Theme 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/zhangsubo/subo4.0/issues\n"
+"POT-Creation-Date: 2024-01-01 00:00:00+00:00\n"
+"PO-Revision-Date: 2024-01-01 00:00:00+00:00\n"
+"Last-Translator: SUBO4 <hello@zhangsubo.cn>\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Welcome to my blog. I write about technology, products, and life."
+msgstr "欢迎来到我的博客。我写关于技术、产品和生活的文章。"
+
+msgid "Primary Menu"
+msgstr "主导航菜单"
+
+msgid "Footer Menu"
+msgstr "页脚菜单"
+
+msgid "References"
+msgstr "参考文献"
+
+msgid "Return to content"
+msgstr "返回正文"
+
+msgid "Theme Settings"
+msgstr "主题设置"
+
+#, php-format
+msgid " · Author: %s"
+msgstr " · 作者：%s"
+
+msgid "over"
+msgstr "完"
+
+msgid "#About Me"
+msgstr "#关于我"
+
+msgid "This work is licensed under %s"
+msgstr "本作品采用 %s 协议进行许可"
+
+msgid "No posts found."
+msgstr "暂无文章"
+
+msgid "Posts navigation"
+msgstr "文章导航"
+
+msgid "Toggle navigation"
+msgstr "切换导航"
+
+msgid "Please set up navigation menu in admin panel"
+msgstr "请在后台设置导航菜单"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Visit GitHub profile"
+msgstr "访问 GitHub 主页"
+
+msgid "Twitter"
+msgstr "Twitter"
+
+msgid "Visit Twitter profile"
+msgstr "访问 Twitter 主页"
+
+msgid "Email"
+msgstr "邮箱"
+
+msgid "Send email"
+msgstr "发送邮件"
+
+msgid "Weibo"
+msgstr "微博"
+
+msgid "Visit Weibo profile"
+msgstr "访问微博主页"
+
+msgid "WeChat Official Account"
+msgstr "微信公众号"
+
+msgid "Show WeChat QR code"
+msgstr "显示微信公众号二维码"
+
+msgid "Personal WeChat ID"
+msgstr "个人微信号"
+
+msgid "Show personal WeChat QR code"
+msgstr "显示个人微信二维码"
+
+msgid "QR Code"
+msgstr "二维码"
+
+msgid "Close"
+msgstr "关闭"
+
+#, php-format
+msgid " · Theme: %s"
+msgstr " · 主题：%s"
+
+#, php-format
+msgid "Report illegal content: %s"
+msgstr "违法和不良信息举报邮箱：%s"
