@@ -7,10 +7,10 @@
 
 get_header();
 
-// 获取ACF字段值
-$avatar = get_field('SUBO4_avatar', 'option') ?: get_template_directory_uri() . '/assets/images/avatar.jpg';
-$author_name = get_field('SUBO4_author_name', 'option') ?: 'SUBO4';
-$bio = get_field('SUBO4_bio', 'option') ?: 'All good things come to those who wait.';
+// 获取ACF字段值（使用辅助函数，带降级处理）
+$avatar = subo4_get_avatar();
+$author_name = subo4_get_author_name();
+$bio = subo4_get_bio();
 
 while (have_posts()) : the_post();
 ?>
@@ -20,20 +20,22 @@ while (have_posts()) : the_post();
     <div class="content-card">
         <div class="row align-items-center">
             <div class="col-md-3 text-center mb-3 mb-md-0">
-                <a href="<?php echo esc_url(home_url('/about/')); ?>">
-                    <img src="<?php echo esc_url($avatar); ?>" alt="<?php echo esc_attr($author_name); ?>" class="rounded-circle" style="width: 80px; height: 80px; border: 1px solid #ddd;">
+                <a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="profile-avatar-link">
+                    <img src="<?php echo esc_url( $avatar ); ?>"
+                         alt="<?php echo esc_attr( $author_name ); ?>"
+                         class="profile-avatar-img">
                 </a>
             </div>
             <div class="col-md-9 text-center text-md-start">
-                <h2 style="font-size: 24px;"><?php echo esc_html($author_name); ?></h2>
-                <p class="text-muted" style="font-size: 14px;"><?php echo esc_html($bio); ?></p>
+                <h2 class="profile-name"><?php echo esc_html( $author_name ); ?></h2>
+                <p class="profile-bio"><?php echo esc_html( $bio ); ?></p>
             </div>
         </div>
     </div>
 
     <!-- 页面内容 -->
     <div class="content-card">
-        <h1 class="text-center mb-4" style="font-size: 24px;"><?php the_title(); ?></h1>
+        <h1 class="text-center mb-4 post-title-main"><?php the_title(); ?></h1>
         <div class="page-content">
             <?php the_content(); ?>
         </div>
