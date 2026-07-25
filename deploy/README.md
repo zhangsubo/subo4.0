@@ -17,44 +17,44 @@ openssl rand -hex 32
 ssh user@server
 
 # 上传脚本
-cd /www/sites/zhangsubo.cn/index
-wget https://raw.githubusercontent.com/zhangsubo/subo4.0/main/deploy/webhook.php
+cd /path/to/your/site
+wget https://raw.githubusercontent.com/your-username/your-repo/main/deploy/webhook.php
 
 # 或者通过 Git
-cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026
+cd /path/to/your/site/wp-content/themes/subo2026
 git pull
-cp deploy/webhook.php /www/sites/zhangsubo.cn/index/
+cp deploy/webhook.php /path/to/your/site/
 
 # 编辑配置
-nano /www/sites/zhangsubo.cn/index/webhook.php
+nano /path/to/your/site/webhook.php
 ```
 
 修改这三行：
 ```php
 define('SECRET_TOKEN', '粘贴你的密钥');
 define('BRANCH', 'main');
-define('REPO_PATH', '/www/sites/zhangsubo.cn/index/wp-content/themes/subo2026');
+define('REPO_PATH', '/path/to/your/site/wp-content/themes/subo2026');
 ```
 
 ### 3️⃣ 设置权限
 
 ```bash
-chmod 644 /www/sites/zhangsubo.cn/index/webhook.php
-touch /www/sites/zhangsubo.cn/index/webhook.log
-chmod 666 /www/sites/zhangsubo.cn/index/webhook.log
-chown www-data:www-data /www/sites/zhangsubo.cn/index/webhook.*
+chmod 644 /path/to/your/site/webhook.php
+touch /path/to/your/site/webhook.log
+chmod 666 /path/to/your/site/webhook.log
+chown www-data:www-data /path/to/your/site/webhook.*
 
 # 确保可以执行 git
-cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026
+cd /path/to/your/site/wp-content/themes/subo2026
 chown -R www-data:www-data .
 ```
 
 ### 4️⃣ 配置 GitHub
 
-1. 访问 https://github.com/zhangsubo/subo4.0/settings/hooks
+1. 访问 https://github.com/your-username/your-repo/settings/hooks
 2. 点击 **Add webhook**
 3. 填写：
-   - **Payload URL**: `https://zhangsubo.cn/webhook.php`
+   - **Payload URL**: `https://example.com/webhook.php`
    - **Content type**: `application/json`
    - **Secret**: 粘贴你的密钥
    - **Events**: Just the push event
@@ -69,7 +69,7 @@ git push
 
 # 查看服务器日志
 ssh user@server
-tail -f /www/sites/zhangsubo.cn/index/webhook.log
+tail -f /path/to/your/site/webhook.log
 ```
 
 看到 "部署成功" 就完成了！🎉

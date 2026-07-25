@@ -18,18 +18,18 @@
 
 ```bash
 # 方法 1: 使用 scp
-scp deploy/webhook.php user@server:/www/sites/zhangsubo.cn/index/webhook.php
+scp deploy/webhook.php user@server:/path/to/your/site/webhook.php
 
 # 方法 2: 通过 Git 部署
 ssh user@server
-cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026
+cd /path/to/your/site/wp-content/themes/subo2026
 git pull origin main
-cp deploy/webhook.php /www/sites/zhangsubo.cn/index/webhook.php
+cp deploy/webhook.php /path/to/your/site/webhook.php
 ```
 
-**推荐路径**：`/www/sites/zhangsubo.cn/index/webhook.php`（网站根目录）
+**推荐路径**：`/path/to/your/site/webhook.php`（网站根目录）
 
-**访问 URL**：`https://zhangsubo.cn/webhook.php`
+**访问 URL**：`https://example.com/webhook.php`
 
 ### 2. 生成密钥
 
@@ -59,7 +59,7 @@ a3f9d8e7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9
 
 ```bash
 ssh user@server
-nano /www/sites/zhangsubo.cn/index/webhook.php
+nano /path/to/your/site/webhook.php
 ```
 
 修改以下配置：
@@ -72,29 +72,29 @@ define('SECRET_TOKEN', 'a3f9d8e7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3
 define('BRANCH', 'main');
 
 // 确认主题目录路径
-define('REPO_PATH', '/www/sites/zhangsubo.cn/index/wp-content/themes/subo2026');
+define('REPO_PATH', '/path/to/your/site/wp-content/themes/subo2026');
 
 // 日志文件路径（确保有写权限）
-define('LOG_FILE', '/www/sites/zhangsubo.cn/index/webhook.log');
+define('LOG_FILE', '/path/to/your/site/webhook.log');
 ```
 
 ### 4. 设置文件权限
 
 ```bash
 # 设置 webhook.php 可执行
-chmod 644 /www/sites/zhangsubo.cn/index/webhook.php
+chmod 644 /path/to/your/site/webhook.php
 
 # 创建并设置日志文件权限
-touch /www/sites/zhangsubo.cn/index/webhook.log
-chmod 666 /www/sites/zhangsubo.cn/index/webhook.log
+touch /path/to/your/site/webhook.log
+chmod 666 /path/to/your/site/webhook.log
 
 # 如果使用 Nginx + PHP-FPM
-chown www-data:www-data /www/sites/zhangsubo.cn/index/webhook.php
-chown www-data:www-data /www/sites/zhangsubo.cn/index/webhook.log
+chown www-data:www-data /path/to/your/site/webhook.php
+chown www-data:www-data /path/to/your/site/webhook.log
 
 # 如果使用 Apache
-chown apache:apache /www/sites/zhangsubo.cn/index/webhook.php
-chown apache:apache /www/sites/zhangsubo.cn/index/webhook.log
+chown apache:apache /path/to/your/site/webhook.php
+chown apache:apache /path/to/your/site/webhook.log
 ```
 
 ### 5. 配置 Git 权限
@@ -103,7 +103,7 @@ chown apache:apache /www/sites/zhangsubo.cn/index/webhook.log
 
 ```bash
 # 切换到主题目录
-cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026
+cd /path/to/your/site/wp-content/themes/subo2026
 
 # 设置目录所有者（根据你的服务器配置）
 chown -R www-data:www-data .
@@ -113,14 +113,14 @@ chown -R www-data:www-data .
 visudo
 
 # 添加以下行（允许 www-data 在主题目录执行 git）
-www-data ALL=(ALL) NOPASSWD: /usr/bin/git -C /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026 *
+www-data ALL=(ALL) NOPASSWD: /usr/bin/git -C /path/to/your/site/wp-content/themes/subo2026 *
 ```
 
 ## 第二步：配置 GitHub Webhook
 
 ### 1. 进入仓库设置
 
-1. 访问你的 GitHub 仓库：https://github.com/zhangsubo/subo4.0
+1. 访问你的 GitHub 仓库：https://github.com/your-username/your-repo
 2. 点击 **Settings**（设置）
 3. 左侧菜单选择 **Webhooks**
 4. 点击 **Add webhook**（添加 webhook）
@@ -131,7 +131,7 @@ www-data ALL=(ALL) NOPASSWD: /usr/bin/git -C /www/sites/zhangsubo.cn/index/wp-co
 
 | 字段 | 值 |
 |------|-----|
-| **Payload URL** | `https://zhangsubo.cn/webhook.php` |
+| **Payload URL** | `https://example.com/webhook.php` |
 | **Content type** | `application/json` |
 | **Secret** | 粘贴刚才生成的密钥 |
 | **SSL verification** | ✅ Enable SSL verification |
@@ -153,7 +153,7 @@ GitHub 会自动发送一个测试请求。查看：
 2. **服务器日志**：
    ```bash
    ssh user@server
-   tail -f /www/sites/zhangsubo.cn/index/webhook.log
+   tail -f /path/to/your/site/webhook.log
    ```
 
 预期输出：
@@ -179,7 +179,7 @@ git push origin main
 
 ```bash
 ssh user@server
-tail -f /www/sites/zhangsubo.cn/index/webhook.log
+tail -f /path/to/your/site/webhook.log
 ```
 
 成功的日志应该类似：
@@ -197,7 +197,7 @@ tail -f /www/sites/zhangsubo.cn/index/webhook.log
 
 ```bash
 ssh user@server
-cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026
+cd /path/to/your/site/wp-content/themes/subo2026
 ls -l WEBHOOK_TEST.md
 ```
 
@@ -226,8 +226,8 @@ tail -50 /var/log/php-fpm/error.log
 tail -50 /var/log/apache2/error.log
 
 # 检查文件权限
-ls -la /www/sites/zhangsubo.cn/index/webhook.php
-ls -la /www/sites/zhangsubo.cn/index/webhook.log
+ls -la /path/to/your/site/webhook.php
+ls -la /path/to/your/site/webhook.log
 ```
 
 ### 问题 3：签名验证通过但 git pull 失败
@@ -237,10 +237,10 @@ ls -la /www/sites/zhangsubo.cn/index/webhook.log
 **解决方法**：
 ```bash
 # 测试 Web 用户能否执行 git
-sudo -u www-data git -C /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026 status
+sudo -u www-data git -C /path/to/your/site/wp-content/themes/subo2026 status
 
 # 如果失败，设置正确的权限
-cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026
+cd /path/to/your/site/wp-content/themes/subo2026
 chown -R www-data:www-data .
 ```
 
@@ -251,8 +251,8 @@ chown -R www-data:www-data .
 **解决方法 1**：使用 HTTPS 方式（推荐公开仓库）
 
 ```bash
-cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026
-git remote set-url origin https://github.com/zhangsubo/subo4.0.git
+cd /path/to/your/site/wp-content/themes/subo2026
+git remote set-url origin https://github.com/your-username/your-repo.git
 ```
 
 **解决方法 2**：为 Web 用户配置 SSH 密钥（推荐私有仓库）
@@ -262,7 +262,7 @@ git remote set-url origin https://github.com/zhangsubo/subo4.0.git
 sudo -u www-data bash
 
 # 生成 SSH 密钥
-ssh-keygen -t ed25519 -C "webhook@zhangsubo.cn" -f ~/.ssh/id_ed25519 -N ""
+ssh-keygen -t ed25519 -C "webhook@example.com" -f ~/.ssh/id_ed25519 -N ""
 
 # 查看公钥
 cat ~/.ssh/id_ed25519.pub
@@ -281,7 +281,7 @@ cat ~/.ssh/id_ed25519.pub
 wp cache flush
 
 # 清除 Opcache
-# 创建临时文件：/www/sites/zhangsubo.cn/index/opcache-reset.php
+# 创建临时文件：/path/to/your/site/opcache-reset.php
 <?php opcache_reset(); echo "Opcache cleared"; ?>
 
 # 访问该文件后删除
@@ -319,7 +319,7 @@ location = /webhook.php {
 
 ```bash
 # 添加到 crontab
-0 9 * * * grep "签名验证失败" /www/sites/zhangsubo.cn/index/webhook.log && echo "发现可疑请求" | mail -s "Webhook 安全警告" admin@zhangsubo.cn
+0 9 * * * grep "签名验证失败" /path/to/your/site/webhook.log && echo "发现可疑请求" | mail -s "Webhook 安全警告" admin@example.com
 ```
 
 ### 4. 日志轮转
@@ -331,7 +331,7 @@ location = /webhook.php {
 sudo nano /etc/logrotate.d/webhook
 
 # 添加内容
-/www/sites/zhangsubo.cn/index/webhook.log {
+/path/to/your/site/webhook.log {
     daily
     rotate 7
     compress
@@ -350,8 +350,8 @@ sudo nano /etc/logrotate.d/webhook
 ```php
 // 在 webhook.php 中修改
 $branch_map = [
-    'refs/heads/main' => '/www/sites/zhangsubo.cn/index/wp-content/themes/subo2026',
-    'refs/heads/dev' => '/www/sites/zhangsubo.cn/dev/wp-content/themes/subo2026',
+    'refs/heads/main' => '/path/to/your/site/wp-content/themes/subo2026',
+    'refs/heads/dev' => '/www/sites/example.com/dev/wp-content/themes/subo2026',
 ];
 
 $ref = $data['ref'] ?? '';
@@ -370,7 +370,7 @@ define('REPO_PATH', $branch_map[$ref]);
 // 在 execute_git_pull() 函数中添加
 if ($result['success']) {
     // 清除缓存
-    exec('wp cache flush --path=/www/sites/zhangsubo.cn/index', $output);
+    exec('wp cache flush --path=/path/to/your/site', $output);
     
     // 重启 PHP-FPM（需要 sudo 权限）
     exec('sudo systemctl reload php-fpm', $output);
@@ -389,7 +389,7 @@ if ($result['success']) {
 crontab -e
 
 # 每 5 分钟检查一次更新
-*/5 * * * * cd /www/sites/zhangsubo.cn/index/wp-content/themes/subo2026 && git pull origin main >> /var/log/auto-deploy.log 2>&1
+*/5 * * * * cd /path/to/your/site/wp-content/themes/subo2026 && git pull origin main >> /var/log/auto-deploy.log 2>&1
 ```
 
 ## 总结

@@ -11,7 +11,7 @@
 // 配置
 define('SECRET_TOKEN', 'YOUR_SECRET_TOKEN_HERE'); // 替换为你的密钥
 define('BRANCH', 'main'); // 要自动部署的分支
-define('REPO_PATH', '/www/sites/zhangsubo.cn/index/wp-content/themes/subo2026'); // 主题目录
+define('REPO_PATH', '/path/to/your/theme/directory'); // 主题目录的绝对路径
 define('LOG_FILE', __DIR__ . '/webhook.log'); // 日志文件路径
 
 /**
