@@ -42,20 +42,51 @@ function execute_git_pull() {
     $output = [];
     $return_var = 0;
 
+    // 记录执行的命令
+    log_message("仓库路径: " . REPO_PATH);
+    log_message("目标分支: " . BRANCH);
+
+    // 检查目录是否存在
+    if (!is_dir(REPO_PATH)) {
+        log_message("错误: 仓库目录不存在");
+        return [
+            'success' => false,
+            'output' => 'Repository path does not exist: ' . REPO_PATH,
+            'exit_code' => 1
+        ];
+    }
+
+    // 检查是否是 Git 仓库
+    if (!is_dir(REPO_PATH . '/.git')) {
+        log_message("错误: 不是有效的 Git 仓库");
+        return [
+            'success' => false,
+            'output' => 'Not a valid git repository: ' . REPO_PATH,
+            'exit_code' => 1
+        ];
+    }
+
     // 切换到仓库目录并执行 git pull
     $commands = [
         "cd " . escapeshellarg(REPO_PATH),
-        "git fetch origin " . escapeshellarg(BRANCH),
-        "git reset --hard origin/" . escapeshellarg(BRANCH),
-        "git clean -fd"
+        "git fetch origin " . escapeshellarg(BRANCH) . " 2>&1",
+        "git reset --hard origin/" . escapeshellarg(BRANCH) . " 2>&1",
+        "git clean -fd 2>&1"
     ];
 
-    $command = implode(' && ', $commands) . ' 2>&1';
+    $command = implode(' && ', $commands);
+    log_message("执行命令: " . $command);
+
     exec($command, $output, $return_var);
+
+    // 记录详细输出
+    $output_str = implode("\n", $output);
+    log_message("命令退出码: " . $return_var);
+    log_message("命令完整输出: " . ($output_str ?: '(无输出)'));
 
     return [
         'success' => $return_var === 0,
-        'output' => implode("\n", $output),
+        'output' => $output_str,
         'exit_code' => $return_var
     ];
 }
