@@ -20,10 +20,8 @@ if ( file_exists( SUBO4_ACF_PATH . 'acf.php' ) ) {
         return SUBO4_ACF_URL;
     });
 
-    // Hide ACF menu in production
-    add_filter( 'acf/settings/show_admin', function( $show ) {
-        return defined( 'WP_DEBUG' ) && WP_DEBUG;
-    });
+    // Show ACF admin menu (always visible)
+    add_filter( 'acf/settings/show_admin', '__return_true' );
 }
 
 /**
