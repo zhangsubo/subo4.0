@@ -39,3 +39,8 @@ CODE_REVIEW_*.md
 FIXES_*.md
 QUICK_REFERENCE.md
 CHANGELOG.md
+
+# Deploy
+deploy/webhook.log
+deploy/*.local.php
+*.secret
