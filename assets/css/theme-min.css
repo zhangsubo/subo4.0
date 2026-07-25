@@ -12,7 +12,6 @@ body {
 /* Custom Navbar */
 .navbar-custom {
     background-color: rgba(255, 255, 255, 0.95) !important;
-    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid #eee;
     padding: 0.8rem 0;
@@ -93,7 +92,6 @@ body {
     height: 80px;
     border-radius: 50%;
     border: 1px solid #ddd;
-    -o-object-fit: cover;
     object-fit: cover;
 }
 
@@ -406,11 +404,126 @@ body {
     top: -9999px;
 }
 
-/* Selection Color */
-::-moz-selection {
-    background-color: #06f;
-    color: #fff;
+/* Profile Section */
+.profile-avatar-link {
+    display: inline-block;
 }
+
+.profile-avatar-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Post Date Display */
+.post-date-month,
+.post-date-year {
+    font-size: 13px;
+    color: #797979;
+}
+
+/* Single Post Styles */
+.post-title-main {
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Logo Styles */
+.navbar-logo {
+    max-height: 40px;
+    width: auto;
+    display: block;
+}
+
+/* Menu Placeholder */
+.menu-placeholder {
+    color: #999;
+    font-size: 12px;
+    margin: 0;
+}
+
+/* Footer Styles */
+.footer-copyright {
+    margin-bottom: 0.25rem;
+}
+
+.footer-link {
+    color: #666;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #333;
+}
+
+.footer-info {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+/* Footnotes Section */
+.footnotes-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #eee;
+}
+
+.footnotes-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+    background: none;
+    padding: 0;
+    display: block;
+    border-radius: 0;
+}
+
+.footnotes-list {
+    padding-left: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.footnotes-list li {
+    margin-bottom: 10px;
+}
+
+.footnotes-list a {
+    color: #06f;
+    text-decoration: none;
+    border-bottom: 1px solid #06f;
+}
+
+.footnotes-list a:hover {
+    color: #004499;
+    border-bottom-color: #004499;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: #6c757d;
+    padding: 40px 20px;
+}
+
+/* Selection Color */
 ::selection {
     background-color: #06f;
     color: #fff;
@@ -577,4 +690,139 @@ body {
     max-height: 250px;
     width: 100%;
     height: auto;
+}/* Additional inline styles moved from template files */
+
+/* Profile Section */
+.profile-avatar-link {
+    display: inline-block;
 }
+
+.profile-avatar-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Post Date Display */
+.post-date-month {
+    font-size: 13px;
+    color: #797979;
+}
+
+.post-date-year {
+    font-size: 13px;
+    color: #797979;
+}
+
+/* Single Post Styles */
+.post-title-main {
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Logo Styles */
+.navbar-logo {
+    max-height: 40px;
+    width: auto;
+    display: block;
+}
+
+/* Menu Placeholder */
+.menu-placeholder {
+    color: #999;
+    font-size: 12px;
+    margin: 0;
+}
+
+/* Footer Styles */
+.footer-copyright {
+    margin-bottom: 0.25rem;
+}
+
+.footer-link {
+    color: #666;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #333;
+}
+
+.footer-info {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+/* Footnotes Section */
+.footnotes-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #eee;
+}
+
+.footnotes-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+    background: none;
+    padding: 0;
+    display: block;
+    border-radius: 0;
+}
+
+.footnotes-list {
+    padding-left: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.footnotes-list li {
+    margin-bottom: 10px;
+}
+
+.footnotes-list a {
+    color: #06f;
+    text-decoration: none;
+    border-bottom: 1px solid #06f;
+}
+
+.footnotes-list a:hover {
+    color: #004499;
+    border-bottom-color: #004499;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: #6c757d;
+    padding: 40px 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-name {
+        font-size: 20px;
+    }
+
+    .post-title-main {
+        font-size: 20px;
+    }
+}
+/* Merged from theme-additions.css */
