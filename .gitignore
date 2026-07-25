@@ -33,3 +33,9 @@ yarn-error.log
 
 # Theme specific
 languages/*.mo
+
+# Documentation (local only)
+CODE_REVIEW_*.md
+FIXES_*.md
+QUICK_REFERENCE.md
+CHANGELOG.md
