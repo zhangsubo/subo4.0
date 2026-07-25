@@ -18,13 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string Modified content with footnotes
  */
 function subo4_convert_links_to_footnotes( $content ) {
-    if ( ! SUBO4_ENABLE_FOOTNOTES || empty( $content ) ) {
+    // Check if footnotes are enabled (with fallback)
+    if ( ( ! defined( 'SUBO4_ENABLE_FOOTNOTES' ) || ! SUBO4_ENABLE_FOOTNOTES ) || empty( $content ) ) {
         return $content;
     }
 
     // Check cache
     $post_id = get_the_ID();
-    if ( $post_id && SUBO4_FOOTNOTES_CACHE ) {
+    $cache_enabled = defined( 'SUBO4_FOOTNOTES_CACHE' ) ? SUBO4_FOOTNOTES_CACHE : true;
+    if ( $post_id && $cache_enabled ) {
         $cache_key = 'subo4_footnotes_' . md5( $content );
         $cached = get_transient( $cache_key );
         if ( false !== $cached ) {
@@ -99,7 +101,7 @@ function subo4_convert_links_to_footnotes( $content ) {
     }
 
     // Cache the result
-    if ( $post_id && SUBO4_FOOTNOTES_CACHE ) {
+    if ( $post_id && $cache_enabled ) {
         set_transient( $cache_key, $modified_content, WEEK_IN_SECONDS );
     }
 
@@ -143,7 +145,8 @@ function subo4_build_footnotes_html( $footnotes ) {
  * @param int $post_id Post ID
  */
 function subo4_clear_footnotes_cache( $post_id ) {
-    if ( ! SUBO4_FOOTNOTES_CACHE ) {
+    $cache_enabled = defined( 'SUBO4_FOOTNOTES_CACHE' ) ? SUBO4_FOOTNOTES_CACHE : true;
+    if ( ! $cache_enabled ) {
         return;
     }
 
