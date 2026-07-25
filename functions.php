@@ -39,6 +39,13 @@ if ( file_exists( SUBO4_ZS_PATH . 'remove-head.php' ) ) {
 require_once SUBO4_THEME_DIR . '/includes/acf-check.php';
 
 /**
+ * Load ACF debug widget (临时调试)
+ */
+if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+    require_once SUBO4_THEME_DIR . '/includes/acf-debug.php';
+}
+
+/**
  * Load theme modules
  */
 require_once SUBO4_THEME_DIR . '/includes/functions/theme-setup.php';
