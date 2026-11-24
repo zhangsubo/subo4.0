@@ -51,6 +51,7 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 require_once SUBO4_THEME_DIR . '/includes/functions/theme-setup.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/acf-integration.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/footnotes.php';
+require_once SUBO4_THEME_DIR . '/includes/functions/projects-cpt.php';
 
 /**
  * Load template functions
@@ -62,3 +63,4 @@ require_once SUBO4_THEME_DIR . '/includes/customizer.php';
  * Load ACF field definitions
  */
 require_once SUBO4_THEME_DIR . '/acf-fields/theme-settings.php';
+require_once SUBO4_THEME_DIR . '/acf-fields/project-fields.php';

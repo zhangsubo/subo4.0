@@ -82,6 +82,30 @@ function subo4_enqueue_scripts() {
         'ajax_url' => admin_url( 'admin-ajax.php' ),
         'nonce'    => wp_create_nonce( 'subo4_nonce' ),
     ) );
+
+    // Vibe Coding 作品展示页与作品详情页专用样式及脚本
+    if ( is_page_template( 'page-vibe-showcase.php' ) || is_singular( 'subo4_project' ) ) {
+        $showcase_css_path = SUBO4_THEME_DIR . '/assets/css/showcase.css';
+        $showcase_css_ver  = file_exists( $showcase_css_path ) ? (string) filemtime( $showcase_css_path ) : SUBO4_THEME_VERSION;
+        wp_enqueue_style(
+            'subo4-showcase-style',
+            SUBO4_THEME_URI . '/assets/css/showcase.css',
+            array( 'subo4-theme-style' ),
+            $showcase_css_ver
+        );
+    }
+
+    if ( is_page_template( 'page-vibe-showcase.php' ) ) {
+        $showcase_js_path = SUBO4_THEME_DIR . '/assets/js/showcase.js';
+        $showcase_js_ver  = file_exists( $showcase_js_path ) ? (string) filemtime( $showcase_js_path ) : SUBO4_THEME_VERSION;
+        wp_enqueue_script(
+            'subo4-showcase-js',
+            SUBO4_THEME_URI . '/assets/js/showcase.js',
+            array(),
+            $showcase_js_ver,
+            true
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'subo4_enqueue_scripts' );
 
