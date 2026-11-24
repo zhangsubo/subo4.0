@@ -21,8 +21,8 @@ remove_action( 'wp_footer', 'wp_print_footer_scripts' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
 remove_action( 'template_redirect', 'wp_shortlink_header', 11, 0 );
 //移除wp-json链接和wp-embed.min.js
-add_filter('rest_enabled', '_return_false');
-add_filter('rest_jsonp_enabled', '_return_false');
+add_filter('rest_enabled', '__return_false');
+add_filter('rest_jsonp_enabled', '__return_false');
 remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
 /**
