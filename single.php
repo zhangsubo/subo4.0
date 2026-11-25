@@ -14,7 +14,7 @@ while ( have_posts() ) : the_post();
 ?>
 
 <main class="main-wrapper">
-    <article class="content-card">
+    <article class="content-card post-article" data-post-toc>
         <!-- Post Header -->
         <div class="text-center mb-4">
             <h1 class="post-title-main"><?php the_title(); ?></h1>

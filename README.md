@@ -36,13 +36,15 @@ subo2026/
 ├── README.md                      # 说明文档
 ├── assets/
 │   ├── css/
-│   │   ├── theme.css              # 主题样式
-│   │   ├── showcase.css           # 作品展示样式
-│   │   ├── admin.css              # 后台样式
-│   │   └── editor-style.css       # 编辑器样式
+│   │   ├── theme.css                # 主题样式
+│   │   ├── showcase.css             # 作品展示样式
+│   │   ├── reading-enhancements.css # 阅读增强样式（TOC/代码块/灯箱）
+│   │   ├── admin.css                # 后台样式
+│   │   └── editor-style.css         # 编辑器样式
 │   ├── js/
-│   │   ├── theme.js               # 主题脚本
-│   │   └── showcase.js            # 作品筛选与搜索脚本
+│   │   ├── theme.js                 # 主题脚本
+│   │   ├── showcase.js              # 作品筛选与搜索脚本
+│   │   └── reading-enhancements.js  # 阅读增强脚本（TOC/代码块/灯箱）
 │   └── images/                    # 图片资源
 │       └── avatar.jpg             # 默认头像
 ├── includes/

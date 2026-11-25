@@ -113,6 +113,48 @@ function subo4_enqueue_scripts() {
             true
         );
     }
+
+    // 文章/页面/作品详情页按需加载阅读增强（TOC、代码块高亮与复制、图片灯箱）
+    if ( is_singular( array( 'post', 'page', 'subo4_project' ) ) ) {
+        $queried  = get_queried_object();
+        $has_code = ( $queried instanceof WP_Post ) && ( false !== stripos( $queried->post_content, '<pre' ) );
+
+        $reading_style_deps = array( 'subo4-theme-style' );
+        $reading_js_deps    = array();
+
+        if ( $has_code ) {
+            wp_enqueue_style(
+                'subo4-hljs-style',
+                SUBO4_HLJS_CSS_CDN,
+                array(),
+                null
+            );
+            wp_enqueue_script(
+                'subo4-hljs-js',
+                SUBO4_HLJS_JS_CDN,
+                array(),
+                null,
+                true
+            );
+            $reading_style_deps[] = 'subo4-hljs-style';
+            $reading_js_deps[]    = 'subo4-hljs-js';
+        }
+
+        wp_enqueue_style(
+            'subo4-reading-style',
+            SUBO4_THEME_URI . '/assets/css/reading-enhancements.css',
+            $reading_style_deps,
+            subo4_get_asset_version( 'assets/css/reading-enhancements.css' )
+        );
+
+        wp_enqueue_script(
+            'subo4-reading-js',
+            SUBO4_THEME_URI . '/assets/js/reading-enhancements.js',
+            $reading_js_deps,
+            subo4_get_asset_version( 'assets/js/reading-enhancements.js' ),
+            true
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'subo4_enqueue_scripts' );
 
@@ -183,15 +225,20 @@ function subo4_resource_hints( $urls, $relation_type ) {
 add_filter( 'wp_resource_hints', 'subo4_resource_hints', 10, 2 );
 
 /**
- * Add Subresource Integrity attributes to Bootstrap CSS tag
+ * Add Subresource Integrity attributes to CDN stylesheet tags
  *
  * @param string $html   The link tag for the enqueued style.
  * @param string $handle The style's registered handle.
  * @return string
  */
 function subo4_add_style_sri( $html, $handle ) {
-    if ( 'bootstrap-5' === $handle && defined( 'SUBO4_BOOTSTRAP_CSS_SRI' ) && false === strpos( $html, 'integrity=' ) ) {
-        $sri  = ' integrity="' . esc_attr( SUBO4_BOOTSTRAP_CSS_SRI ) . '" crossorigin="anonymous"';
+    $sri_map = array(
+        'bootstrap-5'      => defined( 'SUBO4_BOOTSTRAP_CSS_SRI' ) ? SUBO4_BOOTSTRAP_CSS_SRI : '',
+        'subo4-hljs-style' => defined( 'SUBO4_HLJS_CSS_SRI' ) ? SUBO4_HLJS_CSS_SRI : '',
+    );
+
+    if ( ! empty( $sri_map[ $handle ] ) && false === strpos( $html, 'integrity=' ) ) {
+        $sri  = ' integrity="' . esc_attr( $sri_map[ $handle ] ) . '" crossorigin="anonymous"';
         $html = preg_replace( '/\s*\/?>\s*$/', $sri . ' />' . "\n", $html, 1 );
     }
     return $html;
@@ -199,15 +246,20 @@ function subo4_add_style_sri( $html, $handle ) {
 add_filter( 'style_loader_tag', 'subo4_add_style_sri', 10, 2 );
 
 /**
- * Add Subresource Integrity attributes to Bootstrap JS tag
+ * Add Subresource Integrity attributes to CDN script tags
  *
  * @param string $tag    The script tag for the enqueued script.
  * @param string $handle The script's registered handle.
  * @return string
  */
 function subo4_add_script_sri( $tag, $handle ) {
-    if ( 'bootstrap-5-js' === $handle && defined( 'SUBO4_BOOTSTRAP_JS_SRI' ) && false === strpos( $tag, 'integrity=' ) ) {
-        $sri = ' integrity="' . esc_attr( SUBO4_BOOTSTRAP_JS_SRI ) . '" crossorigin="anonymous" ';
+    $sri_map = array(
+        'bootstrap-5-js' => defined( 'SUBO4_BOOTSTRAP_JS_SRI' ) ? SUBO4_BOOTSTRAP_JS_SRI : '',
+        'subo4-hljs-js'  => defined( 'SUBO4_HLJS_JS_SRI' ) ? SUBO4_HLJS_JS_SRI : '',
+    );
+
+    if ( ! empty( $sri_map[ $handle ] ) && false === strpos( $tag, 'integrity=' ) ) {
+        $sri = ' integrity="' . esc_attr( $sri_map[ $handle ] ) . '" crossorigin="anonymous" ';
         $tag = str_replace( '<script ', '<script' . $sri, $tag );
     }
     return $tag;
