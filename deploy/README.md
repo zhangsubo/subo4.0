@@ -2,78 +2,65 @@
 
 ## 5 分钟快速配置
 
-### 1️⃣ 生成密钥
+> 建议优先通过环境变量配置密钥与路径；若使用本地文件配置，请将 `webhook.local.php.example` 复制为 `webhook.local.php`（受 `.gitignore` 排除），不要直接把密钥硬编码进 `webhook.php`。
+
+### 1️⃣ 生成随机密钥
 
 ```bash
 openssl rand -hex 32
 ```
 
-保存输出的密钥（例如：`a3f9d8e7c6b5a4f3...`）
+保存输出的随机串到你的密钥管理器中（切勿明文提交到仓库）。
 
-### 2️⃣ 上传并配置脚本
+### 2️⃣ 上传脚本并配置环境
 
 ```bash
-# SSH 到服务器
-ssh user@server
-
-# 上传脚本
-cd /path/to/your/site
-wget https://raw.githubusercontent.com/your-username/your-repo/main/deploy/webhook.php
-
-# 或者通过 Git
-cd /path/to/your/site/wp-content/themes/subo2026
-git pull
-cp deploy/webhook.php /path/to/your/site/
-
-# 编辑配置
-nano /path/to/your/site/webhook.php
+# SSH 到服务器，复制脚本到站点可访问目录（或直接映射）
+cp /path/to/your/site/wp-content/themes/subo2026/deploy/webhook.php /path/to/your/site/webhook.php
+cp /path/to/your/site/wp-content/themes/subo2026/deploy/webhook.local.php.example /path/to/your/site/webhook.local.php
+chmod 640 /path/to/your/site/webhook.php
+chmod 600 /path/to/your/site/webhook.local.php
 ```
 
-修改这三行：
+编辑服务器上的 `webhook.local.php`（或通过 Nginx `fastcgi_param` / PHP-FPM 注入 `SUBO4_WEBHOOK_SECRET`、`SUBO4_WEBHOOK_BRANCH`、`SUBO4_WEBHOOK_REPO_PATH`、`SUBO4_WEBHOOK_LOG_FILE`）：
+
 ```php
-define('SECRET_TOKEN', '粘贴你的密钥');
-define('BRANCH', 'main');
-define('REPO_PATH', '/path/to/your/site/wp-content/themes/subo2026');
+return array(
+    'secret_token' => '', // 填入步骤 1 生成的密钥
+    'branch'       => 'main',
+    'repo_path'    => '/path/to/your/site/wp-content/themes/subo2026',
+    'log_file'     => __DIR__ . '/webhook.log',
+);
 ```
 
-### 3️⃣ 设置权限
+### 3️⃣ 设置日志与 Git 目录权限
 
 ```bash
-chmod 644 /path/to/your/site/webhook.php
 touch /path/to/your/site/webhook.log
-chmod 666 /path/to/your/site/webhook.log
-chown www-data:www-data /path/to/your/site/webhook.*
+chmod 640 /path/to/your/site/webhook.log
+chown www-data:www-data /path/to/your/site/webhook.php /path/to/your/site/webhook.local.php /path/to/your/site/webhook.log
 
-# 确保可以执行 git
-cd /path/to/your/site/wp-content/themes/subo2026
-chown -R www-data:www-data .
+# 确保 Web 用户可以更新主题仓库
+chown -R www-data:www-data /path/to/your/site/wp-content/themes/subo2026
 ```
 
-### 4️⃣ 配置 GitHub
+### 4️⃣ 配置 GitHub Webhook
 
-1. 访问 https://github.com/your-username/your-repo/settings/hooks
-2. 点击 **Add webhook**
-3. 填写：
-   - **Payload URL**: `https://example.com/webhook.php`
-   - **Content type**: `application/json`
-   - **Secret**: 粘贴你的密钥
-   - **Events**: Just the push event
-4. 点击 **Add webhook**
+1. 打开仓库的 **Settings → Webhooks → Add webhook**
+2. 填写：
+   - **Payload URL**：`https://example.com/webhook.php`
+   - **Content type**：`application/json`
+   - **Secret**：填入步骤 1 生成的密钥
+   - **Events**：选择 `Just the push event`
+3. 保存后，GitHub 发送的 `ping` 事件会收到 `200` `{"success":true,"message":"Pong"}`。
 
-### 5️⃣ 测试
+### 5️⃣ 特性与安全边界
 
-```bash
-# 本地推送测试
-git commit --allow-empty -m "test: webhook"
-git push
-
-# 查看服务器日志
-ssh user@server
-tail -f /path/to/your/site/webhook.log
-```
-
-看到 "部署成功" 就完成了！🎉
+- **未配置密钥时拒绝运行**：密钥为空、长度不足 16 位或为占位符时返回 `500`（fail-closed）。
+- **并发文件锁**：内置 `flock` 排他锁，并发请求返回 `409`。
+- **保护私有目录**：仅执行 `git fetch` + `git reset --hard origin/<branch>`，**不会执行 `git clean -fd`**，确保服务器上的 `includes/acf/` 等私有目录不被清理。
+- **脱敏响应**：详细 Git 输出仅记入服务端 `webhook.log`，HTTP 响应不回显服务器路径与命令 stdout。
 
 ---
 
-**完整文档**: docs/WEBHOOK_DEPLOY.md
+**完整文档**：[docs/WEBHOOK_DEPLOY.md](../docs/WEBHOOK_DEPLOY.md)
