@@ -218,6 +218,57 @@ body {
     font-size: 0.9em;
 }
 
+/* Content Tables */
+.post-content .wp-block-table,
+.page-content .wp-block-table {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.post-content table,
+.page-content table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.post-content .wp-block-table table,
+.page-content .wp-block-table table {
+    margin: 0;
+}
+
+.post-content th,
+.post-content td,
+.page-content th,
+.page-content td {
+    border: 1px solid #dcdfe4;
+    padding: 10px 14px;
+    vertical-align: top;
+}
+
+.post-content th,
+.page-content th {
+    background-color: #f6f8fa;
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+}
+
+.post-content tbody tr:nth-child(even),
+.page-content tbody tr:nth-child(even) {
+    background-color: #fafbfc;
+}
+
+.post-content .wp-block-table figcaption,
+.page-content .wp-block-table figcaption {
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: #86868b;
+    text-align: center;
+}
+
 /* Archive Page */
 .archive-year {
     font-size: 20px;

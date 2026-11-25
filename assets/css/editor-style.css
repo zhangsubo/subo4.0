@@ -91,17 +91,26 @@
     width: 100%;
     margin-bottom: 20px;
     border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .editor-styles-wrapper th,
 .editor-styles-wrapper td {
-    padding: 10px;
-    border-bottom: 1px solid #eaeaea;
+    border: 1px solid #dcdfe4;
+    padding: 10px 14px;
+    vertical-align: top;
 }
 
 .editor-styles-wrapper th {
+    background-color: #f6f8fa;
+    color: #333;
     font-weight: 600;
     text-align: left;
+}
+
+.editor-styles-wrapper tbody tr:nth-child(even) {
+    background-color: #fafbfc;
 }
 
 /* Images */
