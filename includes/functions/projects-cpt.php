@@ -196,7 +196,7 @@ function subo4_project_sortable_columns( $columns ) {
 add_filter( 'manage_edit-subo4_project_sortable_columns', 'subo4_project_sortable_columns' );
 
 /**
- * 安全读取单篇作品 ACF 字段
+ * 安全读取单篇作品自定义字段（纯原生 postmeta，兼容旧版 ACF 平铺 Repeater 数据）
  *
  * @param string $field_name Field name.
  * @param int    $post_id    Post ID.
@@ -204,40 +204,45 @@ add_filter( 'manage_edit-subo4_project_sortable_columns', 'subo4_project_sortabl
  * @return mixed
  */
 function subo4_get_project_field( $field_name, $post_id, $default = '' ) {
-    if ( function_exists( 'get_field' ) ) {
-        $value = get_field( $field_name, $post_id );
-        if ( null !== $value && false !== $value && '' !== $value ) {
-            return $value;
-        }
-        if ( is_bool( $default ) && ( false === $value || 0 === $value || '0' === $value ) ) {
-            return false;
-        }
+    $post_id = (int) $post_id;
+    if ( $post_id <= 0 ) {
+        return $default;
     }
-    return $default;
-}
 
-/**
- * 解析图片字段为 URL（兼容 URL / ACF 图片数组 / 附件 ID）
- *
- * @param mixed  $value Field value.
- * @param string $size  Image size when value is attachment ID.
- * @return string
- */
-function subo4_resolve_image_url( $value, $size = 'large' ) {
-    if ( empty( $value ) ) {
-        return '';
+    // 指标数组：兼容原生序列化数组与旧 ACF Repeater 平铺存储
+    if ( 'subo4_project_metrics' === $field_name ) {
+        $raw = get_post_meta( $post_id, $field_name, true );
+        if ( is_array( $raw ) ) {
+            return $raw;
+        }
+        $count = is_numeric( $raw ) ? min( 3, max( 0, (int) $raw ) ) : 0;
+        if ( $count > 0 ) {
+            $metrics = array();
+            for ( $i = 0; $i < $count; $i++ ) {
+                $metrics[] = array(
+                    'metric_value' => (string) get_post_meta( $post_id, "subo4_project_metrics_{$i}_metric_value", true ),
+                    'metric_label' => (string) get_post_meta( $post_id, "subo4_project_metrics_{$i}_metric_label", true ),
+                );
+            }
+            return $metrics;
+        }
+        return is_array( $default ) ? $default : array();
     }
-    if ( is_string( $value ) ) {
-        return trim( $value );
+
+    if ( is_bool( $default ) ) {
+        if ( ! metadata_exists( 'post', $post_id, $field_name ) ) {
+            return $default;
+        }
+        $value = get_post_meta( $post_id, $field_name, true );
+        return in_array( (string) $value, array( '1', 'true', 'yes', 'on' ), true );
     }
-    if ( is_array( $value ) && ! empty( $value['url'] ) ) {
-        return trim( (string) $value['url'] );
+
+    $value = get_post_meta( $post_id, $field_name, true );
+    if ( null !== $value && false !== $value && '' !== $value ) {
+        return $value;
     }
-    if ( is_numeric( $value ) ) {
-        $url = wp_get_attachment_image_url( (int) $value, $size );
-        return $url ? $url : '';
-    }
-    return '';
+
+    return $default;
 }
 
 /**

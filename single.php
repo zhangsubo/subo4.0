@@ -7,16 +7,15 @@
 
 get_header();
 
-// Get ACF field value with fallback
 $aboutme_content = subo4_get_aboutme_content();
 
-while ( have_posts() ) : the_post();
-?>
+while ( have_posts() ) :
+    the_post();
+    ?>
 
 <main class="main-wrapper">
     <article class="content-card post-article" data-post-toc>
-        <!-- Post Header -->
-        <div class="text-center mb-4">
+        <div class="post-header text-center">
             <h1 class="post-title-main"><?php the_title(); ?></h1>
             <div class="post-meta">
                 <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
@@ -42,27 +41,23 @@ while ( have_posts() ) : the_post();
             </div>
         </div>
 
-        <hr class="mb-4">
+        <hr class="post-header-divider">
 
-        <!-- Post Content -->
         <div class="post-content">
             <?php the_content(); ?>
         </div>
 
-        <!-- Over Marker -->
         <div class="over-marker">
             <div class="line"></div>
             <span><?php esc_html_e( 'over', 'subo4-classic-theme' ); ?></span>
             <div class="line"></div>
         </div>
 
-        <!-- About Me Section -->
         <div class="about-me-section">
             <h3><?php esc_html_e( '#About Me', 'subo4-classic-theme' ); ?></h3>
             <p><?php echo wp_kses_post( nl2br( $aboutme_content ) ); ?></p>
         </div>
 
-        <!-- CC License Notice -->
         <div class="cc-license">
             <p>
                 <?php
@@ -79,7 +74,7 @@ while ( have_posts() ) : the_post();
         $prev_post = get_previous_post();
         $next_post = get_next_post();
         if ( $prev_post || $next_post ) :
-        ?>
+            ?>
         <nav class="post-navigation" aria-label="<?php esc_attr_e( 'Post navigation', 'subo4-classic-theme' ); ?>">
             <div class="post-nav-item post-nav-prev">
                 <?php if ( $prev_post ) : ?>
@@ -89,7 +84,7 @@ while ( have_posts() ) : the_post();
                     </a>
                 <?php endif; ?>
             </div>
-            <div class="post-nav-item post-nav-next text-md-end">
+            <div class="post-nav-item post-nav-next">
                 <?php if ( $next_post ) : ?>
                     <span class="post-nav-label"><?php esc_html_e( 'Next', 'subo4-classic-theme' ); ?> &rarr;</span>
                     <a href="<?php echo esc_url( get_permalink( $next_post ) ); ?>" class="post-nav-title">
@@ -101,10 +96,8 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
     </article>
 
-    <!-- Social Links -->
     <?php get_template_part( 'template-parts/social-links' ); ?>
 
-    <!-- Comments Section -->
     <?php if ( comments_open() || get_comments_number() ) : ?>
     <div class="content-card comments-section">
         <?php comments_template(); ?>

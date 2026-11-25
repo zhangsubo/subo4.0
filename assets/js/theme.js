@@ -1,50 +1,62 @@
 /**
- * Theme JavaScript
+ * Theme JavaScript (Pure Vanilla JS)
  *
  * @package SUBO4_Classic_Theme
  */
 
-(function() {
+(function () {
     'use strict';
 
-    // DOM Ready
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Bootstrap tooltips
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
+    document.addEventListener('DOMContentLoaded', function () {
+        var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Initialize Bootstrap popovers
-        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl);
-        });
+        // 1. Mobile navigation toggle
+        var navToggle = document.querySelector('[data-nav-toggle]');
+        var navCollapse = document.getElementById('navbarNav');
+        if (navToggle && navCollapse) {
+            var closeNav = function () {
+                navCollapse.classList.remove('is-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            };
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            navToggle.addEventListener('click', function () {
+                var isOpen = navCollapse.classList.toggle('is-open');
+                navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            navCollapse.querySelectorAll('.nav-link').forEach(function (link) {
+                link.addEventListener('click', closeNav);
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && navCollapse.classList.contains('is-open')) {
+                    closeNav();
+                }
+            });
+        }
+
+        // 2. Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
             anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href');
-                if (targetId !== '#' && targetId !== 'javascript:void(0);') {
-                    const targetElement = document.querySelector(targetId);
+                var targetId = this.getAttribute('href');
+                if (targetId && targetId.length > 1) {
+                    var targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         e.preventDefault();
                         targetElement.scrollIntoView({
-                            behavior: 'smooth'
+                            behavior: prefersReducedMotion ? 'auto' : 'smooth'
                         });
                     }
                 }
             });
         });
 
-        // Scroll handling: navbar state & back-to-top visibility
-        const navbar = document.querySelector('.navbar-custom');
-        const backToTopBtn = document.getElementById('backToTop');
-        const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+        // 3. Scroll handling: navbar state & back-to-top visibility
+        var navbar = document.querySelector('.navbar-custom');
+        var backToTopBtn = document.getElementById('backToTop');
         if (navbar || backToTopBtn) {
-            const onScroll = function() {
-                const y = window.scrollY;
+            var onScroll = function () {
+                var y = window.scrollY;
                 if (navbar) {
                     navbar.classList.toggle('navbar-scrolled', y > 50);
                 }
@@ -57,7 +69,7 @@
         }
 
         if (backToTopBtn) {
-            backToTopBtn.addEventListener('click', function() {
+            backToTopBtn.addEventListener('click', function () {
                 window.scrollTo({
                     top: 0,
                     behavior: prefersReducedMotion ? 'auto' : 'smooth'
@@ -65,80 +77,68 @@
             });
         }
 
-        // Active menu item highlighting (normalize trailing slash and hash)
-        const normalizePath = function(urlStr) {
+        // 4. Active menu item highlighting
+        var normalizePath = function (urlStr) {
             try {
-                const u = new URL(urlStr, window.location.origin);
-                const path = u.pathname.replace(/\/+$/, '') || '/';
+                var u = new URL(urlStr, window.location.origin);
+                var path = u.pathname.replace(/\/+$/, '') || '/';
                 return u.origin + path;
             } catch (e) {
                 return urlStr;
             }
         };
-        const currentPath = normalizePath(window.location.href);
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        var currentPath = normalizePath(window.location.href);
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (link) {
             if (normalizePath(link.href) === currentPath) {
                 link.classList.add('active');
                 link.setAttribute('aria-current', 'page');
             }
         });
 
-        // Bootstrap 5 Toast for WeChat QR Codes
-        const qrToast = document.getElementById('qrToast');
-        const toastBackdrop = document.getElementById('toastBackdrop');
-        const wechatTriggers = document.querySelectorAll('.wechat-qr-trigger');
-        const toastTitle = document.getElementById('toastTitle');
-        const toastQrImage = document.getElementById('toastQrImage');
+        // 5. Native QR code modal for WeChat triggers
+        var qrModal = document.getElementById('qrModal');
+        var qrBackdrop = document.getElementById('qrModalBackdrop');
+        var qrClose = document.getElementById('qrModalClose');
+        var qrTitle = document.getElementById('qrModalTitle');
+        var qrImage = document.getElementById('qrModalImage');
+        var wechatTriggers = document.querySelectorAll('.wechat-qr-trigger');
 
-        if (qrToast && wechatTriggers.length > 0) {
-            const toast = new bootstrap.Toast(qrToast);
-
-            // Open toast when clicking WeChat QR trigger
-            wechatTriggers.forEach(trigger => {
-                trigger.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    const qrUrl = this.getAttribute('data-qr');
-                    const title = this.getAttribute('data-title');
-
-                    if (toastQrImage && qrUrl) {
-                        toastQrImage.src = qrUrl;
-                    }
-                    if (toastTitle && title) {
-                        toastTitle.textContent = title;
-                    }
-
-                    // Show backdrop
-                    if (toastBackdrop) {
-                        toastBackdrop.classList.add('show');
-                    }
-
-                    // Show toast
-                    toast.show();
-                });
-            });
-
-            // Hide backdrop when toast is hidden
-            qrToast.addEventListener('hidden.bs.toast', function() {
-                if (toastBackdrop) {
-                    toastBackdrop.classList.remove('show');
+        if (qrModal && qrBackdrop && wechatTriggers.length > 0) {
+            var openQrModal = function (url, title) {
+                if (qrImage && url) {
+                    qrImage.src = url;
                 }
+                if (qrTitle && title) {
+                    qrTitle.textContent = title;
+                }
+                qrBackdrop.hidden = false;
+                qrModal.hidden = false;
+            };
+
+            var closeQrModal = function () {
+                qrModal.hidden = true;
+                qrBackdrop.hidden = true;
+            };
+
+            wechatTriggers.forEach(function (trigger) {
+                trigger.addEventListener('click', function () {
+                    openQrModal(
+                        this.getAttribute('data-qr') || '',
+                        this.getAttribute('data-title') || ''
+                    );
+                });
             });
 
-            // Close when clicking backdrop
-            if (toastBackdrop) {
-                toastBackdrop.addEventListener('click', function() {
-                    toast.hide();
-                });
+            if (qrClose) {
+                qrClose.addEventListener('click', closeQrModal);
             }
+            qrBackdrop.addEventListener('click', closeQrModal);
 
-            // Close when pressing Escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && qrToast.classList.contains('show')) {
-                    toast.hide();
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !qrModal.hidden) {
+                    closeQrModal();
                 }
             });
         }
     });
-
 })();

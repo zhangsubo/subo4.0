@@ -1,66 +1,160 @@
 /**
- * Admin Styles
+ * Admin Styles (Native Settings Page & Project Meta Boxes)
  *
  * @package SUBO4_Classic_Theme
  */
 
-/* Admin Panel Customization */
-
-/* ACF Options Page */
-.acf-options-page .acf-field {
-    padding: 15px 20px;
+/* Theme Settings Page */
+.subo4-settings-wrap {
+    max-width: 960px;
 }
 
-.acf-options-page .acf-field-label label {
-    font-weight: 600;
-    color: #333;
-}
-
-.acf-options-page .acf-tab-wrap {
-    background: #f8f9fa;
-}
-
-.acf-options-page .acf-tab-group li a {
-    background: #e9ecef;
-    border-color: #dee2e6;
-    color: #495057;
-}
-
-.acf-options-page .acf-tab-group li.active a {
+.subo4-settings-form {
     background: #fff;
-    border-bottom-color: #fff;
-    color: #000;
+    border: 1px solid #c3c4c7;
+    border-top: none;
+    padding: 20px 24px;
 }
 
-/* Theme Options Navigation */
-#adminmenu li.current a.menu-top {
-    background: #212122;
-    color: #fff;
+.subo4-tab-panel[hidden] {
+    display: none;
 }
 
-#adminmenu li.current a.menu-top:hover {
-    background: #333;
+/* Media Picker Field */
+.subo4-media-field {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
 }
 
-/* Custom Meta Boxes */
-.postbox-header {
-    background: #f8f9fa;
+.subo4-media-preview {
+    width: 72px;
+    height: 72px;
+    border: 1px dashed #c3c4c7;
+    border-radius: 6px;
+    background: #f6f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-.postbox-header h2 {
-    font-weight: 600;
-    color: #333;
-}
-
-/* Block Editor */
-.edit-post-visual-editor {
-    background: #f8f9fa;
-}
-
-/* Bootstrap Preview in Admin */
-.SUBO4-admin-preview {
-    padding: 20px;
+.subo4-media-preview.has-image {
+    border-style: solid;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+}
+
+.subo4-media-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.subo4-media-placeholder {
+    font-size: 11px;
+    color: #8c8f94;
+}
+
+.subo4-media-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subo4-media-remove[hidden] {
+    display: none;
+}
+
+/* Meta Boxes */
+.subo4-mb {
+    padding: 6px 0;
+}
+
+.subo4-mb-section + .subo4-mb-section {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.subo4-mb-heading {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.subo4-mb-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+}
+
+.subo4-mb-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.subo4-mb-field[hidden] {
+    display: none;
+}
+
+.subo4-mb-field--full {
+    grid-column: 1 / -1;
+}
+
+.subo4-mb-field > label {
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.subo4-mb-field input[type="text"],
+.subo4-mb-field input[type="url"],
+.subo4-mb-field select,
+.subo4-mb-field textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+.subo4-mb-toggles {
+    justify-content: center;
+    gap: 10px;
+}
+
+.subo4-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.subo4-metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.subo4-metrics-table th,
+.subo4-metrics-table td {
+    padding: 6px 8px 6px 0;
+    text-align: left;
+}
+
+.subo4-metrics-table th {
+    font-size: 12px;
+    font-weight: 600;
+    color: #50575e;
+}
+
+.subo4-metrics-table input {
+    width: 100%;
+}
+
+@media (max-width: 782px) {
+    .subo4-mb-grid {
+        grid-template-columns: 1fr;
+    }
 }

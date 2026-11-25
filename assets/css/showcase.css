@@ -26,8 +26,8 @@ body.subo4-showcase-wide {
 }
 
 /* 顶部导航栏与页脚对齐 1120px 宽栏 */
-body.subo4-showcase-wide .navbar-custom > .container-fluid,
-body.subo4-showcase-wide > footer > .container {
+body.subo4-showcase-wide .navbar-container,
+body.subo4-showcase-wide .footer-container {
     max-width: 1120px !important;
     padding-left: 24px;
     padding-right: 24px;

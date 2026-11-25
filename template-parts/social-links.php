@@ -5,22 +5,19 @@
  * @package SUBO4_Classic_Theme
  */
 
-// Get all social link fields
-$github = subo4_get_option( 'SUBO4_github', '' );
-$twitter = subo4_get_option( 'SUBO4_twitter', '' );
-$facebook = subo4_get_option( 'SUBO4_facebook', '' );
-$email = subo4_get_option( 'SUBO4_email', '' );
-$weibo = subo4_get_option( 'SUBO4_weibo', '' );
-$wechat_qr = subo4_get_option( 'SUBO4_wechat_qr', '' );
+$github       = subo4_get_option( 'SUBO4_github', '' );
+$twitter      = subo4_get_option( 'SUBO4_twitter', '' );
+$facebook     = subo4_get_option( 'SUBO4_facebook', '' );
+$email        = subo4_get_option( 'SUBO4_email', '' );
+$weibo        = subo4_get_option( 'SUBO4_weibo', '' );
+$wechat_qr    = subo4_get_option( 'SUBO4_wechat_qr', '' );
 $wechat_id_qr = subo4_get_option( 'SUBO4_wechat_id_qr', '' );
 
-// Check if any social links exist
 if ( ! $github && ! $twitter && ! $facebook && ! $email && ! $weibo && ! $wechat_qr && ! $wechat_id_qr ) {
     return;
 }
 ?>
 
-<!-- Social Links -->
 <div class="content-card text-center">
     <div class="social-links">
         <?php if ( $github ) : ?>
@@ -72,39 +69,38 @@ if ( ! $github && ! $twitter && ! $facebook && ! $email && ! $weibo && ! $wechat
         <?php endif; ?>
 
         <?php if ( $wechat_qr ) : ?>
-            <a href="javascript:void(0);"
-               class="wechat-qr-trigger"
-               data-qr="<?php echo esc_url( $wechat_qr ); ?>"
-               data-title="<?php esc_attr_e( 'WeChat Official Account', 'subo4-classic-theme' ); ?>"
-               title="<?php esc_attr_e( 'WeChat Official Account', 'subo4-classic-theme' ); ?>"
-               aria-label="<?php esc_attr_e( 'Show WeChat QR code', 'subo4-classic-theme' ); ?>">
+            <button type="button"
+                    class="social-icon-btn wechat-qr-trigger"
+                    data-qr="<?php echo esc_url( $wechat_qr ); ?>"
+                    data-title="<?php esc_attr_e( 'WeChat Official Account', 'subo4-classic-theme' ); ?>"
+                    title="<?php esc_attr_e( 'WeChat Official Account', 'subo4-classic-theme' ); ?>"
+                    aria-label="<?php esc_attr_e( 'Show WeChat QR code', 'subo4-classic-theme' ); ?>">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="#333" aria-hidden="true"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
-            </a>
+            </button>
         <?php endif; ?>
 
         <?php if ( $wechat_id_qr ) : ?>
-            <a href="javascript:void(0);"
-               class="wechat-qr-trigger"
-               data-qr="<?php echo esc_url( $wechat_id_qr ); ?>"
-               data-title="<?php esc_attr_e( 'Personal WeChat ID', 'subo4-classic-theme' ); ?>"
-               title="<?php esc_attr_e( 'Personal WeChat ID', 'subo4-classic-theme' ); ?>"
-               aria-label="<?php esc_attr_e( 'Show personal WeChat QR code', 'subo4-classic-theme' ); ?>">
+            <button type="button"
+                    class="social-icon-btn wechat-qr-trigger"
+                    data-qr="<?php echo esc_url( $wechat_id_qr ); ?>"
+                    data-title="<?php esc_attr_e( 'Personal WeChat ID', 'subo4-classic-theme' ); ?>"
+                    title="<?php esc_attr_e( 'Personal WeChat ID', 'subo4-classic-theme' ); ?>"
+                    aria-label="<?php esc_attr_e( 'Show personal WeChat QR code', 'subo4-classic-theme' ); ?>">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="#333" aria-hidden="true"><path d="M9.5 4C5.36 4 2 6.69 2 10c0 1.89 1.08 3.56 2.78 4.66L4 17l2.5-1.5c.89.31 1.87.5 2.91.5a5.9 5.9 0 0 0 1.66-.23c-.14-.56-.22-1.15-.22-1.75 0-3.31 3.13-6 7-6 .3 0 .6.02.89.06C13.88 5.02 11.89 4 9.5 4zm-2.5 3c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm5 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm5 4c-3.31 0-6 2.24-6 5s2.69 5 6 5c.83 0 1.62-.15 2.34-.42L21 22l-.5-1.81C21.57 19.44 22 18.27 22 17c0-2.76-2.69-5-6-5zm-2.5 2.5c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm5 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/></svg>
-            </a>
+            </button>
         <?php endif; ?>
     </div>
 </div>
 
-<!-- Bootstrap 5 Toast with Backdrop -->
-<div class="toast-backdrop" id="toastBackdrop"></div>
-<div class="toast-container position-fixed top-50 start-50 translate-middle" style="z-index: 1050;">
-    <div id="qrToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-        <div class="toast-header">
-            <strong class="me-auto" id="toastTitle"><?php esc_html_e( 'QR Code', 'subo4-classic-theme' ); ?></strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="<?php esc_attr_e( 'Close', 'subo4-classic-theme' ); ?>"></button>
-        </div>
-        <div class="toast-body text-center">
-            <img id="toastQrImage" src="" alt="<?php esc_attr_e( 'QR Code', 'subo4-classic-theme' ); ?>" style="max-width: 250px; max-height: 250px;">
-        </div>
+<?php if ( $wechat_qr || $wechat_id_qr ) : ?>
+<div class="qr-modal-backdrop" id="qrModalBackdrop" hidden></div>
+<div class="qr-modal" id="qrModal" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle" hidden>
+    <div class="qr-modal-header">
+        <strong id="qrModalTitle"><?php esc_html_e( 'QR Code', 'subo4-classic-theme' ); ?></strong>
+        <button type="button" class="qr-modal-close" id="qrModalClose" aria-label="<?php esc_attr_e( 'Close', 'subo4-classic-theme' ); ?>">&times;</button>
+    </div>
+    <div class="qr-modal-body">
+        <img id="qrModalImage" src="" alt="<?php esc_attr_e( 'QR Code', 'subo4-classic-theme' ); ?>">
     </div>
 </div>
+<?php endif; ?>

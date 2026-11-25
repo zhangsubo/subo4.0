@@ -5,13 +5,12 @@
  * @package SUBO4_Classic_Theme
  */
 
-// Get theme settings
-$icp_number = subo4_get_option( 'SUBO4_icp_number', '' );
+$icp_number       = subo4_get_option( 'SUBO4_icp_number', '' );
 $complaints_email = subo4_get_option( 'SUBO4_complaints_email', '' );
 ?>
 
-    <footer class="site-footer text-center py-4">
-        <div class="container footer-container">
+    <footer class="site-footer">
+        <div class="footer-container">
             <p class="footer-copyright">
                 &copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>
                 <?php
@@ -23,23 +22,23 @@ $complaints_email = subo4_get_option( 'SUBO4_complaints_email', '' );
                 ?>
             </p>
             <?php if ( $icp_number || $complaints_email ) : ?>
-            <p class="footer-info">
-                <?php if ( $icp_number ) : ?>
-                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="footer-link">
-                    <?php echo esc_html( $icp_number ); ?>
-                </a>
-                <?php endif; ?>
-                <?php if ( $icp_number && $complaints_email ) : ?> · <?php endif; ?>
-                <?php if ( $complaints_email ) : ?>
-                <?php
-                printf(
-                    /* translators: %s: email address */
-                    esc_html__( 'Report illegal content: %s', 'subo4-classic-theme' ),
-                    '<a href="mailto:' . esc_attr( $complaints_email ) . '" class="footer-link">' . esc_html( $complaints_email ) . '</a>'
-                );
-                ?>
-                <?php endif; ?>
-            </p>
+                <p class="footer-info">
+                    <?php if ( $icp_number ) : ?>
+                        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="footer-link">
+                            <?php echo esc_html( $icp_number ); ?>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ( $icp_number && $complaints_email ) : ?> · <?php endif; ?>
+                    <?php if ( $complaints_email ) : ?>
+                        <?php
+                        printf(
+                            /* translators: %s: email address */
+                            esc_html__( 'Report illegal content: %s', 'subo4-classic-theme' ),
+                            '<a href="mailto:' . esc_attr( $complaints_email ) . '" class="footer-link">' . esc_html( $complaints_email ) . '</a>'
+                        );
+                        ?>
+                    <?php endif; ?>
+                </p>
             <?php endif; ?>
         </div>
     </footer>

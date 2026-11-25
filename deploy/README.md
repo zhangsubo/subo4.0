@@ -58,7 +58,7 @@ chown -R www-data:www-data /path/to/your/site/wp-content/themes/subo2026
 
 - **未配置密钥时拒绝运行**：密钥为空、长度不足 16 位或为占位符时返回 `500`（fail-closed）。
 - **并发文件锁**：内置 `flock` 排他锁，并发请求返回 `409`。
-- **保护私有目录**：仅执行 `git fetch` + `git reset --hard origin/<branch>`，**不会执行 `git clean -fd`**，确保服务器上的 `includes/acf/` 等私有目录不被清理。
+- **保护私有目录**：仅执行 `git fetch` + `git reset --hard origin/<branch>`，**不会执行 `git clean -fd`**，确保服务器上的未跟踪本地配置与私有目录不被清理。
 - **脱敏响应**：详细 Git 输出仅记入服务端 `webhook.log`，HTTP 响应不回显服务器路径与命令 stdout。
 
 ---

@@ -14,14 +14,13 @@ $archive_description = get_the_archive_description();
 <main class="main-wrapper">
     <?php get_template_part( 'template-parts/profile-card' ); ?>
 
-    <!-- 归档内容 -->
     <div class="content-card">
-        <h1 class="text-center mb-4 post-title-main">
+        <h1 class="text-center post-title-main">
             <?php echo $archive_title ? wp_kses_post( $archive_title ) : esc_html__( 'Archives', 'subo4-classic-theme' ); ?>
         </h1>
 
         <?php if ( $archive_description ) : ?>
-            <div class="text-center text-muted small mb-4">
+            <div class="archive-description">
                 <?php echo wp_kses_post( $archive_description ); ?>
             </div>
         <?php endif; ?>
@@ -38,7 +37,7 @@ $archive_description = get_the_archive_description();
                         echo '</div>';
                     }
                     $current_year = $year;
-                    echo '<div class="archive-year-section mb-4">';
+                    echo '<div class="archive-year-section">';
                     echo '<h3 class="archive-year">' . esc_html( $year ) . '</h3>';
                 }
                 ?>
@@ -56,19 +55,8 @@ $archive_description = get_the_archive_description();
             <p class="empty-state"><?php esc_html_e( 'No posts found.', 'subo4-classic-theme' ); ?></p>
         <?php endif; ?>
 
-        <!-- 分页 -->
         <div class="pagination-wrapper">
-            <?php
-            the_posts_pagination( array(
-                'prev_text'          => '&larr;',
-                'next_text'          => '&rarr;',
-                'before_page_number' => '',
-                'after_page_number'  => '',
-                'mid_size'           => 2,
-                'end_size'           => 1,
-                'screen_reader_text' => esc_html__( 'Posts navigation', 'subo4-classic-theme' ),
-            ) );
-            ?>
+            <?php subo4_render_pagination(); ?>
         </div>
     </div>
 </main>
