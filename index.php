@@ -6,31 +6,10 @@
  */
 
 get_header();
-
-// Get ACF field values with fallbacks
-$avatar = subo4_get_avatar();
-$author_name = subo4_get_author_name();
-$bio = subo4_get_bio();
 ?>
 
 <main class="main-wrapper">
-    <!-- Profile Card -->
-    <div class="content-card">
-        <div class="row align-items-center">
-            <div class="col-md-3 text-center mb-3 mb-md-0">
-                <a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="profile-avatar-link">
-                    <img src="<?php echo esc_url( $avatar ); ?>"
-                         alt="<?php echo esc_attr( $author_name ); ?>"
-                         class="profile-avatar-img"
-                         loading="eager">
-                </a>
-            </div>
-            <div class="col-md-9 text-center text-md-start">
-                <h2 class="profile-name"><?php echo esc_html( $author_name ); ?></h2>
-                <p class="profile-bio"><?php echo esc_html( $bio ); ?></p>
-            </div>
-        </div>
-    </div>
+    <?php get_template_part( 'template-parts/profile-card', null, array( 'eager_avatar' => true ) ); ?>
 
     <!-- Post List -->
     <div class="content-card">

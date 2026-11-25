@@ -2,7 +2,7 @@
 /**
  * ACF 主题设置字段
  *
- * @package SUBO4_Block_Theme
+ * @package SUBO4_Classic_Theme
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

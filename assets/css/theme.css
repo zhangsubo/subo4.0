@@ -152,8 +152,8 @@ body {
 
 .post-content h2 {
     font-size: 20px;
-    margin-top: 30px;
-    margin-bottom: 15px;
+    margin-top: 40px;
+    margin-bottom: 20px;
     padding: 10px 20px;
     background-color: #212122;
     color: #fff;
@@ -186,6 +186,11 @@ body {
 
 .post-content li {
     margin-bottom: 10px;
+}
+
+.post-content ol li {
+    font-size: 14px;
+    color: #666;
 }
 
 .post-content a {
@@ -534,83 +539,6 @@ body {
     color: #fff;
 }
 
-/* QR Code Modal */
-.qr-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.qr-modal.show {
-    display: block;
-}
-
-.qr-modal-overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0.3);
-}
-
-.qr-modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    max-width: 90%;
-    max-height: 90%;
-    text-align: center;
-    z-index: 1001;
-}
-
-.qr-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #999;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.3s;
-    z-index: 1002;
-}
-
-.qr-close:hover,
-.qr-close:focus {
-    color: #333;
-}
-
-.qr-title {
-    margin: 0 0 20px 0;
-    font-size: 18px;
-    color: #333;
-}
-
-.qr-image {
-    max-width: 250px;
-    max-height: 250px;
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-/* QR Trigger Link */
-.qr-trigger {
-    cursor: pointer;
-}
-
 /* Footnotes Styles */
 .footnote-ref {
     font-size: 0.75em;
@@ -628,21 +556,6 @@ body {
 
 .footnote-ref a:hover {
     color: #004499;
-}
-
-.post-content h2 {
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-
-.post-content ol {
-    padding-left: 20px;
-}
-
-.post-content ol li {
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #666;
 }
 
 .reversefootnote {
@@ -690,129 +603,6 @@ body {
     max-height: 250px;
     width: 100%;
     height: auto;
-}/* Additional inline styles moved from template files */
-
-/* Profile Section */
-.profile-avatar-link {
-    display: inline-block;
-}
-
-.profile-avatar-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    object-fit: cover;
-}
-
-.profile-name {
-    font-size: 24px;
-    margin-bottom: 0.5rem;
-}
-
-.profile-bio {
-    font-size: 14px;
-    color: #6c757d;
-}
-
-/* Post Date Display */
-.post-date-month {
-    font-size: 13px;
-    color: #797979;
-}
-
-.post-date-year {
-    font-size: 13px;
-    color: #797979;
-}
-
-/* Single Post Styles */
-.post-title-main {
-    font-size: 24px;
-    margin-bottom: 1rem;
-}
-
-.post-meta {
-    font-size: 14px;
-    color: #6c757d;
-}
-
-/* Logo Styles */
-.navbar-logo {
-    max-height: 40px;
-    width: auto;
-    display: block;
-}
-
-/* Menu Placeholder */
-.menu-placeholder {
-    color: #999;
-    font-size: 12px;
-    margin: 0;
-}
-
-/* Footer Styles */
-.footer-copyright {
-    margin-bottom: 0.25rem;
-}
-
-.footer-link {
-    color: #666;
-    text-decoration: none;
-}
-
-.footer-link:hover {
-    color: #333;
-}
-
-.footer-info {
-    font-size: 12px;
-    margin-bottom: 0;
-}
-
-/* Footnotes Section */
-.footnotes-section {
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 2px solid #eee;
-}
-
-.footnotes-section h2 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #333;
-    background: none;
-    padding: 0;
-    display: block;
-    border-radius: 0;
-}
-
-.footnotes-list {
-    padding-left: 20px;
-    font-size: 14px;
-    color: #666;
-}
-
-.footnotes-list li {
-    margin-bottom: 10px;
-}
-
-.footnotes-list a {
-    color: #06f;
-    text-decoration: none;
-    border-bottom: 1px solid #06f;
-}
-
-.footnotes-list a:hover {
-    color: #004499;
-    border-bottom-color: #004499;
-}
-
-/* Empty State */
-.empty-state {
-    text-align: center;
-    color: #6c757d;
-    padding: 40px 20px;
 }
 
 /* Responsive adjustments */
@@ -825,4 +615,36 @@ body {
         font-size: 20px;
     }
 }
-/* Merged from theme-additions.css */
+
+/* Search & 404 Page Styles */
+.error-404-code {
+    font-size: 64px;
+    font-weight: 700;
+    color: #212122;
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.error-404-desc,
+.search-result-meta {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.search-form-inline {
+    display: flex;
+    gap: 8px;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.search-form-inline .form-control {
+    font-size: 14px;
+}
+
+.search-form-inline .btn-dark {
+    background-color: #212122;
+    border-color: #212122;
+    font-size: 14px;
+    white-space: nowrap;
+}

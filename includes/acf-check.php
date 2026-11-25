@@ -35,19 +35,21 @@ function subo2026_get_field($selector, $post_id = false, $default = '') {
 /**
  * 在管理后台显示 ACF 警告
  */
-add_action('admin_notices', function() {
-    // 只在主题设置页面显示
-    $screen = get_current_screen();
-    if (!$screen || !isset($screen->id) || $screen->id !== 'toplevel_page_theme-settings') {
+add_action( 'admin_notices', function() {
+    if ( function_exists( 'get_field' ) || ! current_user_can( 'edit_theme_options' ) ) {
         return;
     }
-    
-    if (!function_exists('get_field')) {
-        echo '<div class="notice notice-error is-dismissible">';
-        echo '<p><strong>主题错误：</strong>ACF PRO 插件未正确加载。</p>';
-        echo '<p>请确保将 ACF PRO 文件放置在：<br>';
-        echo '<code>' . esc_html(get_template_directory() . '/includes/acf/') . '</code></p>';
-        echo '<p>需要包含的文件：<code>acf.php</code></p>';
-        echo '</div>';
+
+    $screen = get_current_screen();
+    $allowed_screens = array( 'dashboard', 'themes', 'toplevel_page_subo4-theme-settings' );
+    if ( ! $screen || ! isset( $screen->id ) || ! in_array( $screen->id, $allowed_screens, true ) ) {
+        return;
     }
-});
+
+    echo '<div class="notice notice-error is-dismissible">';
+    echo '<p><strong>主题错误：</strong>ACF PRO 插件未正确加载。</p>';
+    echo '<p>请确保将 ACF PRO 文件放置在：<br>';
+    echo '<code>' . esc_html( get_template_directory() . '/includes/acf/' ) . '</code></p>';
+    echo '<p>需要包含的文件：<code>acf.php</code></p>';
+    echo '</div>';
+} );

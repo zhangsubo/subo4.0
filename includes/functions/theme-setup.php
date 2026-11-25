@@ -10,6 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Get asset version based on filemtime with theme version fallback
+ *
+ * @param string $relative_path Path relative to theme root.
+ * @return string
+ */
+function subo4_get_asset_version( $relative_path ) {
+    $file_path = SUBO4_THEME_DIR . '/' . ltrim( $relative_path, '/' );
+    return file_exists( $file_path ) ? (string) filemtime( $file_path ) : SUBO4_THEME_VERSION;
+}
+
+/**
  * Theme setup
  */
 function subo4_theme_setup() {
@@ -35,7 +46,7 @@ function subo4_theme_setup() {
     ) );
 
     // Add editor style
-    add_editor_style( 'assets/css/editor-style-min.css' );
+    add_editor_style( 'assets/css/editor-style.css' );
 }
 add_action( 'after_setup_theme', 'subo4_theme_setup' );
 
@@ -54,9 +65,9 @@ function subo4_enqueue_scripts() {
     // Theme styles
     wp_enqueue_style(
         'subo4-theme-style',
-        SUBO4_THEME_URI . '/assets/css/theme-min.css',
+        SUBO4_THEME_URI . '/assets/css/theme.css',
         array( 'bootstrap-5' ),
-        SUBO4_THEME_VERSION
+        subo4_get_asset_version( 'assets/css/theme.css' )
     );
 
     // Bootstrap JS
@@ -71,9 +82,9 @@ function subo4_enqueue_scripts() {
     // Theme JS
     wp_enqueue_script(
         'subo4-theme-js',
-        SUBO4_THEME_URI . '/assets/js/theme-min.js',
+        SUBO4_THEME_URI . '/assets/js/theme.js',
         array( 'bootstrap-5-js' ),
-        SUBO4_THEME_VERSION,
+        subo4_get_asset_version( 'assets/js/theme.js' ),
         true
     );
 
@@ -85,24 +96,20 @@ function subo4_enqueue_scripts() {
 
     // Vibe Coding 作品展示页与作品详情页专用样式及脚本
     if ( is_page_template( 'page-vibe-showcase.php' ) || is_singular( 'subo4_project' ) ) {
-        $showcase_css_path = SUBO4_THEME_DIR . '/assets/css/showcase.css';
-        $showcase_css_ver  = file_exists( $showcase_css_path ) ? (string) filemtime( $showcase_css_path ) : SUBO4_THEME_VERSION;
         wp_enqueue_style(
             'subo4-showcase-style',
             SUBO4_THEME_URI . '/assets/css/showcase.css',
             array( 'subo4-theme-style' ),
-            $showcase_css_ver
+            subo4_get_asset_version( 'assets/css/showcase.css' )
         );
     }
 
     if ( is_page_template( 'page-vibe-showcase.php' ) ) {
-        $showcase_js_path = SUBO4_THEME_DIR . '/assets/js/showcase.js';
-        $showcase_js_ver  = file_exists( $showcase_js_path ) ? (string) filemtime( $showcase_js_path ) : SUBO4_THEME_VERSION;
         wp_enqueue_script(
             'subo4-showcase-js',
             SUBO4_THEME_URI . '/assets/js/showcase.js',
             array(),
-            $showcase_js_ver,
+            subo4_get_asset_version( 'assets/js/showcase.js' ),
             true
         );
     }
@@ -115,9 +122,9 @@ add_action( 'wp_enqueue_scripts', 'subo4_enqueue_scripts' );
 function subo4_admin_scripts() {
     wp_enqueue_style(
         'subo4-admin-style',
-        SUBO4_THEME_URI . '/assets/css/admin-min.css',
+        SUBO4_THEME_URI . '/assets/css/admin.css',
         array(),
-        SUBO4_THEME_VERSION
+        subo4_get_asset_version( 'assets/css/admin.css' )
     );
 }
 add_action( 'admin_enqueue_scripts', 'subo4_admin_scripts' );

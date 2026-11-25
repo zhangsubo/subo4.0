@@ -2,74 +2,74 @@
 /**
  * 归档页面模板
  *
- * @package SUBO4_Block_Theme
+ * @package SUBO4_Classic_Theme
  */
 
 get_header();
 
-// 获取ACF字段值（使用辅助函数，带降级处理）
-$avatar = subo4_get_avatar();
-$author_name = subo4_get_author_name();
-$bio = subo4_get_bio();
+$archive_title       = get_the_archive_title();
+$archive_description = get_the_archive_description();
 ?>
 
 <main class="main-wrapper">
-    <!-- 个人资料卡片 -->
-    <div class="content-card">
-        <div class="row align-items-center">
-            <div class="col-md-3 text-center mb-3 mb-md-0">
-                <a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="profile-avatar-link">
-                    <img src="<?php echo esc_url( $avatar ); ?>"
-                         alt="<?php echo esc_attr( $author_name ); ?>"
-                         class="profile-avatar-img">
-                </a>
-            </div>
-            <div class="col-md-9 text-center text-md-start">
-                <h2 class="profile-name"><?php echo esc_html( $author_name ); ?></h2>
-                <p class="profile-bio"><?php echo esc_html( $bio ); ?></p>
-            </div>
-        </div>
-    </div>
+    <?php get_template_part( 'template-parts/profile-card' ); ?>
 
     <!-- 归档内容 -->
     <div class="content-card">
-        <h1 class="text-center mb-4 post-title-main"><?php esc_html_e( 'Archives', 'subo4-classic-theme' ); ?></h1>
+        <h1 class="text-center mb-4 post-title-main">
+            <?php echo $archive_title ? wp_kses_post( $archive_title ) : esc_html__( 'Archives', 'subo4-classic-theme' ); ?>
+        </h1>
 
-        <?php
-        // 获取所有文章，按年份分组
-        $args = array(
-            'post_type'      => 'post',
-            'posts_per_page' => -1,
-            'orderby'        => 'date',
-            'order'          => 'DESC',
-        );
-        $posts = get_posts( $args );
+        <?php if ( $archive_description ) : ?>
+            <div class="text-center text-muted small mb-4">
+                <?php echo wp_kses_post( $archive_description ); ?>
+            </div>
+        <?php endif; ?>
 
-        if ( $posts ) :
+        <?php if ( have_posts() ) : ?>
+            <?php
             $current_year = '';
-            foreach ( $posts as $post ) :
-                setup_postdata( $post );
+            while ( have_posts() ) :
+                the_post();
                 $year = get_the_date( 'Y' );
 
-                if ( $year !== $current_year ) :
-                    if ( $current_year !== '' ) echo '</div>';
+                if ( $year !== $current_year ) {
+                    if ( '' !== $current_year ) {
+                        echo '</div>';
+                    }
                     $current_year = $year;
                     echo '<div class="archive-year-section mb-4">';
                     echo '<h3 class="archive-year">' . esc_html( $year ) . '</h3>';
-                endif;
+                }
                 ?>
                 <div class="archive-item">
-                    <span class="archive-time"><?php echo get_the_date( 'M j' ); ?></span>
+                    <span class="archive-time"><?php echo esc_html( get_the_date( 'M j' ) ); ?></span>
                     <span class="archive-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
                 </div>
-            <?php
-            endforeach;
-            echo '</div>';
-            wp_reset_postdata();
-        else :
+                <?php
+            endwhile;
+            if ( '' !== $current_year ) {
+                echo '</div>';
+            }
             ?>
+        <?php else : ?>
             <p class="empty-state"><?php esc_html_e( 'No posts found.', 'subo4-classic-theme' ); ?></p>
         <?php endif; ?>
+
+        <!-- 分页 -->
+        <div class="pagination-wrapper">
+            <?php
+            the_posts_pagination( array(
+                'prev_text'          => '&larr;',
+                'next_text'          => '&rarr;',
+                'before_page_number' => '',
+                'after_page_number'  => '',
+                'mid_size'           => 2,
+                'end_size'           => 1,
+                'screen_reader_text' => esc_html__( 'Posts navigation', 'subo4-classic-theme' ),
+            ) );
+            ?>
+        </div>
     </div>
 </main>
 

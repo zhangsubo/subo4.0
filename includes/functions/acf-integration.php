@@ -10,21 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Load bundled ACF PRO
- */
-if ( file_exists( SUBO4_ACF_PATH . 'acf.php' ) ) {
-    include_once( SUBO4_ACF_PATH . 'acf.php' );
-
-    // Set ACF URL
-    add_filter( 'acf/settings/url', function( $url ) {
-        return SUBO4_ACF_URL;
-    });
-
-    // Show ACF admin menu (always visible)
-    add_filter( 'acf/settings/show_admin', '__return_true' );
-}
-
-/**
  * Register ACF Options Page
  */
 function subo4_acf_init() {
@@ -94,9 +79,13 @@ function subo4_get_bio() {
  * Get about me content
  */
 function subo4_get_aboutme_content() {
+    $default_aboutme = ( defined( 'SUBO4_DEFAULT_ABOUTME' ) && 'Welcome to my blog. I write about technology, products, and life.' !== SUBO4_DEFAULT_ABOUTME )
+        ? SUBO4_DEFAULT_ABOUTME
+        : __( 'Welcome to my blog. I write about technology, products, and life.', 'subo4-classic-theme' );
+
     return subo4_get_option(
         'SUBO4_aboutme_content',
-        SUBO4_DEFAULT_ABOUTME
+        $default_aboutme
     );
 }
 

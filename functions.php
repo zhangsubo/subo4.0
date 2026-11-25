@@ -24,6 +24,9 @@ if ( file_exists( SUBO4_ACF_PATH . 'acf.php' ) ) {
     add_filter( 'acf/settings/url', function( $url ) {
         return SUBO4_ACF_URL;
     });
+
+    // Show ACF admin menu
+    add_filter( 'acf/settings/show_admin', '__return_true' );
 }
 
 /**
@@ -52,12 +55,6 @@ require_once SUBO4_THEME_DIR . '/includes/functions/theme-setup.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/acf-integration.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/footnotes.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/projects-cpt.php';
-
-/**
- * Load template functions
- */
-require_once SUBO4_THEME_DIR . '/includes/template-tags.php';
-require_once SUBO4_THEME_DIR . '/includes/customizer.php';
 
 /**
  * Load ACF field definitions

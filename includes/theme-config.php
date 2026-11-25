@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 define( 'SUBO4_DEFAULT_AUTHOR_NAME', 'SUBO4' );
 define( 'SUBO4_DEFAULT_BIO', 'All good things come to those who wait.' );
-define( 'SUBO4_DEFAULT_ABOUTME', __( 'Welcome to my blog. I write about technology, products, and life.', 'subo4-classic-theme' ) );
+define( 'SUBO4_DEFAULT_ABOUTME', 'Welcome to my blog. I write about technology, products, and life.' );
 
 /**
  * Theme paths and URIs
