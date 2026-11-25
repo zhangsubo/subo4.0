@@ -29,6 +29,16 @@ while ( have_posts() ) : the_post();
                     '<span class="author">' . esc_html( get_the_author() ) . '</span>'
                 );
                 ?>
+                <span class="post-reading-time">
+                    <?php
+                    $reading_minutes = subo4_get_reading_time( get_the_ID() );
+                    printf(
+                        /* translators: %d: estimated reading time in minutes */
+                        esc_html( _n( ' · %d min read', ' · %d min read', $reading_minutes, 'subo4-classic-theme' ) ),
+                        $reading_minutes
+                    );
+                    ?>
+                </span>
             </div>
         </div>
 
@@ -64,6 +74,31 @@ while ( have_posts() ) : the_post();
                 ?>
             </p>
         </div>
+
+        <?php
+        $prev_post = get_previous_post();
+        $next_post = get_next_post();
+        if ( $prev_post || $next_post ) :
+        ?>
+        <nav class="post-navigation" aria-label="<?php esc_attr_e( 'Post navigation', 'subo4-classic-theme' ); ?>">
+            <div class="post-nav-item post-nav-prev">
+                <?php if ( $prev_post ) : ?>
+                    <span class="post-nav-label">&larr; <?php esc_html_e( 'Previous', 'subo4-classic-theme' ); ?></span>
+                    <a href="<?php echo esc_url( get_permalink( $prev_post ) ); ?>" class="post-nav-title">
+                        <?php echo esc_html( get_the_title( $prev_post ) ); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
+            <div class="post-nav-item post-nav-next text-md-end">
+                <?php if ( $next_post ) : ?>
+                    <span class="post-nav-label"><?php esc_html_e( 'Next', 'subo4-classic-theme' ); ?> &rarr;</span>
+                    <a href="<?php echo esc_url( get_permalink( $next_post ) ); ?>" class="post-nav-title">
+                        <?php echo esc_html( get_the_title( $next_post ) ); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
+        </nav>
+        <?php endif; ?>
     </article>
 
     <!-- Social Links -->

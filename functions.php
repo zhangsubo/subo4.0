@@ -55,6 +55,7 @@ require_once SUBO4_THEME_DIR . '/includes/functions/theme-setup.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/acf-integration.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/footnotes.php';
 require_once SUBO4_THEME_DIR . '/includes/functions/projects-cpt.php';
+require_once SUBO4_THEME_DIR . '/includes/functions/seo-meta.php';
 
 /**
  * Load ACF field definitions

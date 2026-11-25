@@ -18,45 +18,53 @@
 
 ```
 subo2026/
-├── style.css                 # 主题信息（必需）
-├── style-min.css            # 主题样式（压缩版）
-├── functions.php             # 主题功能
-├── index.php                 # 首页/文章列表
-├── home.php                  # 自定义首页模板
-├── single.php                # 文章详情页
-├── page.php                  # 页面模板
-├── archive.php               # 归档页
-├── tags.php                  # 标签页
-├── header.php                # 页头模板
-├── footer.php                # 页脚模板
-├── screenshot.png            # 主题截图
-├── README.md                 # 说明文档
+├── style.css                      # 主题信息（必需）
+├── functions.php                  # 主题入口
+├── index.php                      # 默认列表模板
+├── home.php                       # 首页模板
+├── single.php                     # 文章详情页
+├── page.php                       # 页面模板
+├── archive.php                    # 归档页
+├── tags.php                       # 标签云页面模板
+├── search.php                     # 站内搜索结果页
+├── 404.php                        # 404 错误页
+├── page-vibe-showcase.php         # Vibe Coding 作品展示页模板
+├── single-subo4_project.php       # 作品详情页模板
+├── header.php                     # 页头模板
+├── footer.php                     # 页脚模板
+├── screenshot.png                 # 主题截图
+├── README.md                      # 说明文档
 ├── assets/
 │   ├── css/
-│   │   ├── theme.css        # 主题样式（源文件）
-│   │   ├── theme-min.css    # 主题样式（压缩版）
-│   │   ├── admin.css        # 后台样式（源文件）
-│   │   ├── admin-min.css    # 后台样式（压缩版）
-│   │   ├── editor-style.css # 编辑器样式（源文件）
-│   │   └── editor-style-min.css # 编辑器样式（压缩版）
+│   │   ├── theme.css              # 主题样式
+│   │   ├── showcase.css           # 作品展示样式
+│   │   ├── admin.css              # 后台样式
+│   │   └── editor-style.css       # 编辑器样式
 │   ├── js/
-│   │   ├── theme.js         # 主题脚本（源文件）
-│   │   └── theme-min.js     # 主题脚本（压缩版）
-│   ├── fonts/               # 字体文件
-│   │   ├── Roboto-*.ttf     # Roboto 字体
-│   │   └── open-sans-*.woff2 # Open Sans 字体
-│   └── images/              # 图片资源
-│       └── avatar.jpg       # 默认头像
+│   │   ├── theme.js               # 主题脚本
+│   │   └── showcase.js            # 作品筛选与搜索脚本
+│   └── images/                    # 图片资源
+│       └── avatar.jpg             # 默认头像
 ├── includes/
-│   ├── acf/                 # ACF PRO 插件（需放置）
-│   ├── template-tags.php    # 模板标签
-│   ├── customizer.php       # 自定义器设置
-│   └── zsuper-framework/    # Zsuper 框架
-│       └── remove-head.php  # 移除头部冗余代码
+│   ├── acf/                       # ACF PRO 插件（需放置，不入库）
+│   ├── theme-config.php           # 主题常量与 CDN/SRI 配置
+│   ├── acf-check.php              # ACF 可用性检测
+│   ├── acf-debug.php              # WP_DEBUG 下的 ACF 调试小工具
+│   ├── functions/
+│   │   ├── theme-setup.php        # 主题初始化、资源入队与 SRI/阅读时长
+│   │   ├── acf-integration.php    # ACF 选项页与读取辅助函数
+│   │   ├── footnotes.php          # 正文外链脚注转换
+│   │   ├── projects-cpt.php       # 作品 CPT 与分类法
+│   │   └── seo-meta.php           # Open Graph / Twitter Card 元标签
+│   └── zsuper-framework/
+│       └── remove-head.php        # 精简头部冗余发现链接
 ├── acf-fields/
-│   └── theme-settings.php   # ACF 字段配置
+│   ├── theme-settings.php         # ACF 主题设置字段
+│   └── project-fields.php         # ACF 作品字段配置
 └── template-parts/
-    └── social-links.php     # 社交链接模板
+    ├── profile-card.php           # 个人资料卡片部件
+    ├── project-card.php           # 作品卡片部件
+    └── social-links.php           # 社交链接模板
 ```
 
 ## 安装

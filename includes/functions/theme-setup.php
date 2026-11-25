@@ -54,12 +54,12 @@ add_action( 'after_setup_theme', 'subo4_theme_setup' );
  * Enqueue frontend styles and scripts
  */
 function subo4_enqueue_scripts() {
-    // Bootstrap CSS (with fallback)
+    // Bootstrap CSS
     wp_enqueue_style(
         'bootstrap-5',
         SUBO4_BOOTSTRAP_CSS_CDN,
         array(),
-        SUBO4_BOOTSTRAP_VERSION
+        null
     );
 
     // Theme styles
@@ -75,7 +75,7 @@ function subo4_enqueue_scripts() {
         'bootstrap-5-js',
         SUBO4_BOOTSTRAP_JS_CDN,
         array(),
-        SUBO4_BOOTSTRAP_VERSION,
+        null,
         true
     );
 
@@ -165,10 +165,72 @@ function subo4_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'subo4_excerpt_more' );
 
 /**
- * Add lazy loading to post images
+ * Add preconnect resource hint for jsDelivr CDN
+ *
+ * @param array  $urls          URLs to print for resource hints.
+ * @param string $relation_type Relation type the URLs are printed for.
+ * @return array
  */
-function subo4_add_lazy_loading( $attr, $attachment ) {
-    $attr['loading'] = 'lazy';
-    return $attr;
+function subo4_resource_hints( $urls, $relation_type ) {
+    if ( 'preconnect' === $relation_type ) {
+        $urls[] = array(
+            'href'        => 'https://cdn.jsdelivr.net',
+            'crossorigin' => 'anonymous',
+        );
+    }
+    return $urls;
 }
-add_filter( 'wp_get_attachment_image_attributes', 'subo4_add_lazy_loading', 10, 2 );
+add_filter( 'wp_resource_hints', 'subo4_resource_hints', 10, 2 );
+
+/**
+ * Add Subresource Integrity attributes to Bootstrap CSS tag
+ *
+ * @param string $html   The link tag for the enqueued style.
+ * @param string $handle The style's registered handle.
+ * @return string
+ */
+function subo4_add_style_sri( $html, $handle ) {
+    if ( 'bootstrap-5' === $handle && defined( 'SUBO4_BOOTSTRAP_CSS_SRI' ) && false === strpos( $html, 'integrity=' ) ) {
+        $sri  = ' integrity="' . esc_attr( SUBO4_BOOTSTRAP_CSS_SRI ) . '" crossorigin="anonymous"';
+        $html = preg_replace( '/\s*\/?>\s*$/', $sri . ' />' . "\n", $html, 1 );
+    }
+    return $html;
+}
+add_filter( 'style_loader_tag', 'subo4_add_style_sri', 10, 2 );
+
+/**
+ * Add Subresource Integrity attributes to Bootstrap JS tag
+ *
+ * @param string $tag    The script tag for the enqueued script.
+ * @param string $handle The script's registered handle.
+ * @return string
+ */
+function subo4_add_script_sri( $tag, $handle ) {
+    if ( 'bootstrap-5-js' === $handle && defined( 'SUBO4_BOOTSTRAP_JS_SRI' ) && false === strpos( $tag, 'integrity=' ) ) {
+        $sri = ' integrity="' . esc_attr( SUBO4_BOOTSTRAP_JS_SRI ) . '" crossorigin="anonymous" ';
+        $tag = str_replace( '<script ', '<script' . $sri, $tag );
+    }
+    return $tag;
+}
+add_filter( 'script_loader_tag', 'subo4_add_script_sri', 10, 2 );
+
+/**
+ * Estimate reading time in minutes for Chinese + English content
+ *
+ * @param int $post_id Optional post ID.
+ * @return int Estimated minutes (minimum 1).
+ */
+function subo4_get_reading_time( $post_id = 0 ) {
+    $post = get_post( $post_id ? $post_id : get_the_ID() );
+    if ( ! $post ) {
+        return 1;
+    }
+
+    $text        = wp_strip_all_tags( strip_shortcodes( $post->post_content ) );
+    $cjk_count   = preg_match_all( '/[\x{4e00}-\x{9fff}]/u', $text );
+    $non_cjk     = trim( (string) preg_replace( '/[\x{4e00}-\x{9fff}]+/u', ' ', $text ) );
+    $latin_words = '' !== $non_cjk ? str_word_count( $non_cjk ) : 0;
+    $total_units = (int) $cjk_count + (int) $latin_words;
+
+    return max( 1, (int) ceil( $total_units / 350 ) );
+}

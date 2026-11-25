@@ -10,8 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // 精简头部信息
-remove_action( 'wp_head', 'feed_links', 2 ); // 移除 feed
-remove_action( 'wp_head', 'feed_links_extra', 3 ); // 移除额外 feed
+remove_action( 'wp_head', 'feed_links_extra', 3 ); // 移除额外 feed（保留主站 RSS 发现）
 remove_action( 'wp_head', 'rsd_link' ); // 移除离线编辑器开放接口
 remove_action( 'wp_head', 'wlwmanifest_link' ); // 移除离线编辑器开放接口
 remove_action( 'wp_head', 'index_rel_link' ); // 去除本页唯一链接信息

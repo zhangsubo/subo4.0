@@ -10,8 +10,8 @@ $icp_number = subo4_get_option( 'SUBO4_icp_number', '' );
 $complaints_email = subo4_get_option( 'SUBO4_complaints_email', '' );
 ?>
 
-    <footer class="text-center py-4" style="color: #666; font-size: 13px;">
-        <div class="container" style="max-width: 800px;">
+    <footer class="site-footer text-center py-4">
+        <div class="container footer-container">
             <p class="footer-copyright">
                 &copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>
                 <?php
@@ -43,6 +43,8 @@ $complaints_email = subo4_get_option( 'SUBO4_complaints_email', '' );
             <?php endif; ?>
         </div>
     </footer>
+
+    <button type="button" class="back-to-top" id="backToTop" aria-label="<?php esc_attr_e( 'Back to top', 'subo4-classic-theme' ); ?>" hidden>&uarr;</button>
 
     <?php wp_footer(); ?>
 </body>

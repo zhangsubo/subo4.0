@@ -19,7 +19,7 @@ $logo = subo4_get_logo();
     <?php wp_body_open(); ?>
 
     <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-        <div class="container-fluid" style="max-width: 800px;">
+        <div class="container-fluid navbar-container">
             <!-- Logo Area -->
             <?php if ( $logo ) : ?>
             <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
